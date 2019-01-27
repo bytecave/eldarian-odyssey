@@ -1,0 +1,336 @@
+;[^] = synonym
+;[!] = valid verb
+;[*] = State - #SAVAIL, #SFIXED, #SDROPPED, #SPLAYERAWARE, #STATE[0-7]. Set during init from DataSection and by code
+;      For #SPLAYERAWARE state, 9 means revealed only in code , not when walking into a room
+;[$] = location(s) where it exists
+;[@] = specified verb causes +/- state of room specified. If no $ after colon, changes state of named noun
+;      @GET:-1:ROBBERSCAVE removes state 1 from ROBBERSAVE on GET.  @UNLOCK:-1+2:
+;      @UNLOCK:-1+2:$ZARBURGSOUTHGATE removes state 1 and 2 from ZARBURGSOUTHGATE on UNLOCK
+;      @GET:-1 removes state 1 from this noun
+;      @GET:+1-2:^AXE adds state 1 and removes state2 from the noun AXE
+;	   @FIGHT:!3+2:$ZARBURGCOURTYARD only add state 2 if state 3 is NOT set
+;	   @BUY:&3+2  only add state two if state 3 IS set
+;	   @BUY:!3+2  only add state two if state 3 IS NOT set
+;      ! and & apply to the rest of the line
+;[&] = unattached synonym, handled in room handler. Parser and handler only know about this. 
+;[0] = default description, [1-8] = state specific descriptions, [9] = description found in noun handler code
+
+}SIGNPOST,!READ,!BREAK,!KICK,!STEAL,*0100-10000000,$ZARBURGROAD
+ [0]The sign pointing west is hand printed to read "nowhere." The eastward sign reads "Woods," and to the south it reads "Township of Zarburg."[1]The post is sprawled in the middle of the road. You can't really tell what lies ahead in each direction. The signpost sports three signs, variously reading "nowhere, Woods, and Township of Zarburg."
+ @BREAK:-0+1
+ @BREAK:-1+2:$ZARBURGROAD
+}INTERSECTION,*0100-10000000,$ZARBURGROAD
+ [0]There is no one in sight here. The intersection leads to the south, east and west.
+}ROAD,*0100-10000000,$EMPTYROAD
+ [0]It's just a roughly scratched out road.
+}BOTTLE,!DIG,!SEARCH,*0100-10000000,$WOODSBURIED
+ [0]It's a hard glass bottle, but most of it is buried. You'll have to dig it up.
+ @DIG:-1-4+2+5:$WOODSBURIED
+ @DIG:+P+A:^POTION
+}POTION,^ELIXIR,!DRINK,!IMBIBE,!QUAFF,!SIP,*0009-10000000,$WOODSBURIED
+ [0]Effervescent, green liquid swirls inside. Drinking it will heal you of damage.
+ @GET:-5:$WOODSBURIED
+}WATCHMAN,!TALK,!SPEAK,!FIGHT,!FEED,!ATTACK,!KILL,!BRIBE,!PAY,*0109-10000000,$ZARBURGSOUTHGATE
+ @BRIBE:-1+2-3:$ZARBURGSOUTHGATE
+ @BRIBE:-3+4-5:$OAKROOM
+ @BRIBE:-1+2-3:^MAINGATE
+ @BRIBE:-0+1
+ [0]The watchman is an older fellow, spry and wiry, with gray hair and shifty eyes. He looks hungry in every sense of the word.[1]The watchman is rubbing his hands excitedly and mumbling to himself.
+}MAINGATE,&GATE,!OPEN,!CLIMB,!KNOCK,!BANG,!CLOSE,!BURN,!UNLOCK,!CHOP!,!CUT,!PUSH,*1101-11000000,$ZARBURGSOUTHGATE
+ @KNOCK:+3+4
+ @KNOCK:+3:$ZARBURGSOUTHGATE
+ @KNOCK:!4-3+5:$OAKROOM
+ [0]It's a large, iron-banded log gate with a sign reading "South Zarburg."[1] The main gate is bolted closed[3], but a small sliding window is open. You can see a watchman looking at you[1].[2] The main gate heading into Zarburg is currently open.
+}AXE,^AX,!USE,!SWING,*0009-10000000,$ZARBURGSOUTHGATE
+ [0]It's a beautiful hand-crafted axe with a very sharp blade.[1]The axe is broken and lodged firmly into the fallen tree, its blade twisted and chipped.
+ @GET:-1:^STACK
+}STACK,&WOOD,!SEARCH,*0101-10100000,$ZARBURGSOUTHGATE
+ @SEARCH:+1-2
+ @SEARCH:+A+P^AXE
+ [0]Random sizes of wood are stacked loosely on top of each other.[2] You see a brief sparkle from the stack, might be worth a closer look.[1] There is an axe lodged in the stack.
+}OAK,&TREE,!CLIMB,!UP,!DOWN,!CHOP,!CUT,!DESCEND,!BURN,*1101-10000000,$ZARBURGSOUTHGATE
+ @CHOP:-0+1-A+F:^AXE
+ @CHOP:+4:$ZARBURGSOUTHGATE
+ @CHOP:-0+1
+ [0]It's a tall oak tree with broad, strong branches.[1]This once mighty oak now lies in front of the Zarburg South gate, a twisted axe embedded in it trunk.
+}RAT,^RODENT,^RATS,!KICK,!CATCH,!ATTACK,!KILL,!FIGHT,*0100-10000000,$ZARBURGALLEYWAY
+ [0]These small, black creatures smell like a sewer and scramble away whenever you draw near.
+}BIRCH,&TREE,!CLIMB,!DESCEND,!UP,!DOWN,!CHOP,!BURN,*1100-10000000,$WOODSBURIED
+ [0]Something is mostly buried near the base of the birch.[1]Something used to be buried near the base of this tree.
+}FIR,&TREE,!CLIMB,!DESCEND,!UP,!DOWN,!CHOP,!BURN,*1100-10000000,$WOODSTREE
+ [0]This fir tree stands alone. It is much wider and seems to be taller than any other tree you've seen in the woods.
+}CLIFF,^PRECIPICE,!CLIMB,!DESCEND,!UP,!DOWN,!JUMP,!LEAP,*1101-10000000,$ZARBURGCLIFF
+ [0]The cliff overhang is very treacherous. One false step and you will fall!
+}CLOUDS,*0100-10000000,$ZARBURGCLIFF
+ [0]The clouds are dense and puffy. Very cloud-like.
+}ALLEY,*0100-10000000,$ZARBURGALLEYWAY
+ [0]The alley is dark, dirty and fairly wet. Dozens of rats move through here.
+}BRIDGE,!CROSS,*0100-10000000,$ZARBURGBRIDGE
+ [0]It's an old wood and stone bridge. It is very sturdy and, though heavily worn, has stood the test of time very well.
+}TORCH,!LIGHT,!EXTINGUISH,!BURN,!SNUFF,!UNLIGHT,*1001-10001000,$INVENTORY
+ [0]The torch is made from a tree branch with an oil-covered cloth wrapped around one end. [1]The torch is burning brightly[2], with a strange white glow within the flames[1].[4]The torch is currently not burning.[5]The torch is used up.
+}KING,^ELDRED,!TALK,!SPEAK,!HONOR,!RESPECT,!KNEEL,!BOW,!GENUFLECT,!FIGH,!KILL,!ATTACK,*0100-10000000,$ZARBURGTHRONEROOM
+ [0]Eldred is a benevolent ruler, wise and just. He is exceptionally gray for a man in his mid-40's. His face is set in worry, and he often seems distracted, even when speaking to others.[1] He eyes you with great displeasure, standing safely behind two mighty Defenders.
+ @FIGHT:-0+1
+ @FIGHT:-0+1+7:^THRONE
+ @FIGHT:-1+2-3-4-5-6:$ZARBURGTHRONEROOM
+ @FIGHT:+1-2:^DEFENDER
+}DEFENDER,&GUARDS,!TALK,!SPEAK,!BRIBE,!FIGHT,!ATTACK,!KILL,*1100-10000000,$ZARBURGTHRONEROOM
+ [0]The Defenders are an elite group of women, lethal and powerful. They are armed to the teeth and attentive to the smallest detail. They have sworn their lives to protect King Eldred.[1] The Defenders circle about you with weapons drawn, waiting for the slightest provocation. Making any sudden moves toward Eldred would be ill advised.[2] The Defenders laugh at you derisively, mocking your silly attempt to bribe them.
+ @FIGHT:-0+1:^ELDRED
+ @FIGHT:+1-2
+ @FIGHT:-1+2-3-4-5-6:$ZARBURGTHRONEROOM 
+ @FIGHT:+1:^KING
+ @FIGHT:-0+1+7:^THRONE
+ @BRIBE:!1+2
+ @BRIBE:!2-3+4:$ZARBURGTHRONEROOM
+}THRONE,!SIT,*0100-10100000,$ZARBURGTHRONEROOM
+ [0]Eldred sits upon a[1]It's your[2] typical, jewel-encrusted golden throne with a plush, velvety seat.
+ @SIT:-0+1+7
+ @SIT:!2-5+6:$ZARBURGTHRONEROOM
+}QUEUE,!ENTER,!LEAVE,*0100-10000000,$ZARBURGTHRONEROOM
+ [0]The queue stretches from your front foot all the way to your back foot. It's gonna be an interminable wait.
+}NOTE,!READ,!GIVE,*0000-10000000,$ITEMGONE
+ [0]"Exchange this note for 5 gold coins."
+}CLERK,!TALK,!SPEAK,!BRIBE,!ROB,!FIGHT,!KILL,!ATTACK,*1100-10000000,$ZARBURGTREASURY
+ [0]The clerk is an elderly woman with a kind, yet earnest and calculating air about her. She sizes you up with a quick glance and waits for you to speak.[1]The clerk is visibly upset and no longer looks friendly. She glares at you and waits for you to speak... or try anything.[2] She shakes her head at you in a distinctly disapproving manner.
+ @FIGHT:-0+1-2+6
+ @FIGHT:-0-2+1:^SENTINEL
+ @FIGHT:-1+2:$ZARBURGTREASURY
+ @ROB:-0+1+2+7
+ @ROB:!1-0+2:^SENTINEL
+}SENTINEL,&GUARDS,!TALK,!SPEAK,!BRIBE,!FIGHT,!ATTACK,!KILL,*1100-10000000,$ZARBURGTREASURY
+ [0]The Royal Sentinels are stoic and unmoving, yet undeniably lethal. You'd best not try anything.[1]The Sentinels are at full alert and hover over you with anger in their eyes.[2]The Sentinels seem hopeful to attack and look upon you with disdain.
+ @FIGHT:-0+1-2
+ @FIGHT:+1:^KING
+ @FIGHT:-0+1+2:^CLERK
+ @FIGHT:-1+2:$ZARBURGTREASURY
+ @BRIBE:!1-0-1+2
+ @BRIBE:!1+2:^CLERK
+ @BRIBE:!2+1:$ZARBURGTREASURY
+}BAND,!REMOVE,*0101-11000000
+ [0]The band encircles your neck and there is no visible means of removing it. It glows with a dim blue light.[1] You're not sure why it's there, and you wonder of its purpose.[2] It has already saved your life!
+ @PLAYERDIED:-1+2+7
+}MERCHANT,^SALESMAN,!TALK,!SPEAK,!PAY,!FIGHT,!KILL,!ATTACK,*1100-11011000,$ZARBURGCOURTYARD
+ @PAY:-1-4-5
+ @PAY:-1+A:^MEALBAR
+ @BUY:-1+2:^TRAY
+ @PAY:-1!3+2:$ZARBURGCOURTYARD
+ @FIGHT:-0-1+2
+ @FIGHT:&4+5
+ @FIGHT:-2+3:$ZARBURGCOURTYARD
+ [0]The merchant looks at you with wary eyes, but a friendly demeanor.[1] He wants to sell something to every customer![2] The merchant is very cool towards you and is talking about calling the guards.[5] He insists that you purchase a mealbar or leave.[3] His shop is ready to close[4] and only one meal bar remains[3].
+}MEALBAR,^BAR,!BUY,!PURCHASE,!STEAL,!EAT,!GIVE,!USE,!SHARE,*0000-11000000,$ZARBURGCOURTYARD
+ @BUY:-1+A
+ @BUY:-1-4-5:^MERCHANT
+ @BUY:-1+2:^TRAY
+ @BUY:-1!3+2:$ZARBURGCOURTYARD
+ @STEAL:-0-1+2:^MERCHANT
+ @STEAL:-2+3:$ZARBURGCOURTYARD
+ [0]The mealbar looks hearty and savory. One should feed you for a full day.[1] The price is one coin per bar.
+}TRAY,!STEAL,*0100-11000000,$ZARBURGCOURTYARD
+ [0]The plain wooden tray [1]holds a single mealbar and several crumbs[2]is scattered with crumbs, but no mealbars[0].
+}BLUNDERBUSS,^GUN,*0100-10000000,$ZARBURGCOURTYARD
+ [0]The blunderbuss looks well kept: oiled, shiny and effective. It is now trained directly on your chest.
+}DROW,^DARK,&ELF,!TALK,!SPEAK,!BARGAIN,!FIGHT,!ATTACK,!KILL,!ROB,!PICKPOCKET,!PAY,!BRIBE,*0100-10000000,$ZARBURGINN
+ [0]This Drow looks quite dangerous. She is dressed in all black, adding to her menacing persona.[1]The dark elf stands in a defensive posture. You can tell that she know what she is about.
+ @FIGHT:+1+7
+ @FIGHT:-2+3:$ZARBURGINN
+ @FIGHT:-1:^TABLE
+}BARMAID,^MAID,!TALK,!SPEAK,!FLIRT,!FIGHT,!ATTACK,!KILL,*0100-10000000,$ZARBURGINN
+ [0]The barmaid is an unassuming young innocent. Her attention remains fixed on the door.[1]The barmaid's hatred for you is surpassed only by her fear of you.
+ @FIGHT:-0+1
+ @FIGHT:-4+5:$ZARBURGINN
+}TAVDOOR,&DOOR,!GO,!CLOSE,!OPEN,*0100-10000000,$ZARBURGINN
+ [0]The tavern door is open. The tavern door is always, always open.
+}BEER,^ALE,!BUY,!DRINK,!CHUG,!QUAFF,!PURCHASE,*0100-10000000,$ZARBURGINN
+ [0]No one here will sell you any ale. Locals only, odd custom.
+}INN,^TAVERN,*0100-10000000,$ZARBURGINN
+ [0]The Green Dragon Inn looks ancient, most of the bar stains are older than you. It's fairly dark in here and everyone except for you and the Drow are long-time locals.
+}MAP,!READ,!USE,!BUY,*0000-10000000,$ITEMGONE
+ [0]The aged map is wrinkled and illegible in many places, but you can make out a few areas of what appears to be a dungeon. Interesting. This will probably be useful later.
+}TABLE,!SIT,!BREAK,!FLIP,!TIP,!TOPPLE,*0000-11000000,$ZARBURGINN
+ [0]It's a four-legged, roughly-carved wooden table, stained by use over many years.[1] A solitary Drow sits at the table, casually observing you.
+}ROPE,!USE,!CLIMB,!ASCEND,!DESCEND,!UP,!DOWN,!TIE,!FASTEN,!UNTIE,!UNFASTEN,!REMOVE,*0009-10000000,$ELVENCAMP
+ [0]This long, sturdy rope is used for climbing.[1] The rope is fastened to a stump and dangles deep into the chasm below.[2] The rope leads up the chasm wall, all the way to the top.
+ @TIE:+1-A+F-D
+ @TIE:+1:^STUMP
+ @TIE:+1:$DEEPCHASM
+ @TIE:+1:^CHASM
+ @UNTIE:-1+A-F+D
+ @UNTIE:-1:^STUMP
+ @UNTIE:-1:$DEEPCHASM
+ @UNTIE:-1:^CHASM
+ @DESCEND:-1+2
+ @CLIMB:+1-2
+}STUMP,!KICK,!REMOVE,!DIG,*0100-10000000,$DEEPCHASM
+ [0]This round, narrow stump is buried deep into the earth and cannot be moved.[1] A climbing rope that descends into the nearby chasm is fastened to it.
+}CHASM,^CANYON,!CLIMB,!ASCEND,!DESCEND,!JUMP,!LEAP,*0100-10000000,$DEEPCHASM
+ [0]The chasm walls are steep and barren.[1] There is a climbing rope hanging here.
+}MEADOW,*0100-10000000,$MEADOW
+ [0]The meadow is at the bottom of a large, steep chasm. There are a multitude of flowers here, and a single, fist-size mushroom right near where you descended from the cliff. A rope hangs next to the chasm wall.
+}TRAP,!DISARM,!DETECT,!SPRING,!TRIP,*0109-00000000,$EMPTYCAVE
+ [0]A tripwire spans the hallway, ready to shoot poisonous darts from the walls![1]A disarmed tripwire lays harmless against one wall.
+}POND,&WATER,!SWIM,!JUMP,*0100-10000000,$FISHPOND
+ [0]The pond glows from below, illuminating the few fish swimming in it.
+}FISH,!CATCH,!EAT,!THROW,!KISS,!TOSS,!TALK,!SPEAK,!GIVE,*0000-10000000,$FISHPOND
+ [0]It's just a regular fish, but it glows faintly, likely from the same organisms living on the walls.[1]The macerated fish is the property of a hungry dragonling now!
+ @CATCH:-0-1+2-A+F:^POLE
+ @CATCH:-A-1:^HOOK
+ @CATCH:-A:^LINE
+ @CATCH:+2:$FISHPOND
+ @DRAGONLING:-0+1+F-A
+ @DRAGONLING:-0-1+2:^DRAGONLING
+ @DRAGONLING:-1-2+3+5:$DRAGONLING
+ @DRAGONLING:-1+2:^DAIS
+ @DRAGONLING:+P+A:^SCEPTER
+}POLE,!USE,!BAIT,*1000-10000000,$FISHPOND
+ [0]This is an ill-used, hand-carved fishing pole with a short line and a hook.[1] There is a small chunk of mushroom on the hook.[2]The pole lies deep at the bottom of the strange pond; it's out of reach.
+ @GET:-1:$FISHPOND
+}HOOK,!BAIT,*0100-10000000,$FISHPOND
+ [0]It's a small, barbed fishing hook[1] with a piece of fragrant mushroom attached[0].
+ @BAIT:+3:^MUSHROOM
+ @BAIT:+1:^POLE
+ @BAIT:+1
+ @EMPTY:-1
+ @EMPTY:-1:^POLE
+}LINE,*0100-10000000,$FISHPOND
+ [0]It's a thinly braided line with a hook on the end.
+}DAIS,*0100-11000000,$DRAGONLING
+ [0]The white, marbled dais [1]supports a young dragonling.[2]holds a shiny, golden scepter.[3]stands empty in the middle of the room.
+}SCEPTER,!USE,!HOLD,*0009-10000000,$DRAGONLING
+ [0]This regal golden scepter looks worthy of a prince. It vibrates gently in your hand with a mysterious power.
+ @GET:-2+3:^DAIS
+}DRAGONLING,!KILL,!ATTACK,!FIGHT,!POKE,!TALK,!SPEAK,!SCREAM,!FEED,*0100-11000000,$DRAGONLING
+ [0]The winged dragonling is confidently perched on a dais, following you with his wide eyes.[1] There's something underneath him; you can't make out what it is.[2]The dragonling is facing the wall, happily eating his fish.
+}IGNEOUS,^PILE,&ROCK,*0100-10000000,$DRAGONLING
+ [0]These dark, pockmarked rocks are from cooled lava, or something.
+}MUSHROOM,!USE,!EAT,!PICK,!SMELL,*1000-11000000,$MEADOW
+ [0]The mushroom has a strange mix of seemingly random colors with an odd but pleasant odor. It [1]would fit[2]fits[0] neatly in your hand.[3] A piece or two has been broken off.
+ @GET:-1:$MEADOW
+ @GET:-1+2
+}FLOWERS,!PICK,!GATHER,*0101-10000000,$MEADOW
+ [0]Each flower is beautiful, colorful and smells wonderful.
+}GRASS,!MOW,!CUT,!SMELL,!SMOKE,!BURN,!LIGHT,*0100-10000000,$CLEARING
+ [0]It's grass.
+}STONE,&ROCK,!THROW,*1000-10000000,$CLEARING
+ [0]It's a solid, fist-sized rock.
+ @GET:-1:$CLEARING
+}RIVER,^CURRENT,!SWIM,!DRINK,*0100-10000000,$CLEARING
+ [0]The river moves very slowly here. Good for swimming.[1]The current is gentle and quiet to the south, but rages wildly in all other directions. You won't be able to swim any direction other than south.
+}BOX,!OPEN,!CLOSE,!SHUT,!UNLOCK,!SMASH,!BREAK,!PICK,!LIFT,*0100-11000000,$ISLAND
+ [0]This stone-covered box is a one foot cube.[1] If only you had a tool you could use to open it![2] The cover is stuck open and [3]a single key is inside.[4]the box is empty.
+ @BREAK:-1+2+3
+ @BREAK:+A+P:^KEY
+ @BREAK:+1:$ISLAND
+}KEY,!USE,!TURN,*0009-10000000,$ISLAND
+ [0]It's an ordinary iron key.
+ @GET:-3+4:^BOX
+ @USEPORT:-1+2:^PORTCULLIS
+ @USEPORT:-1+2:$PASSAGEWAY
+ @USECELL:-1+2:$HALLWAY2
+ @USECELL:-1+2:^CELLDOOR
+}PORTCULLIS,&GATE,!UNLOCK,!OPEN,!BREAK,!FORCE,!SMASH,!KICK,!LIFT,!CLIMB,*0100-11000000,$PASSAGEWAY
+ [0]This plainly fashioned portcullis looks very strong. [1]It prevents you from going south into the dungeon.[2]It is retracted up into the ceiling.
+}CELLDOOR,&DOOR,!UNLOCK,!OPEN,*0100-11000000,$HALLWAY2
+ [0]The heavy, wooden cell door is [1]locked.[2]unlocked and latched firmly to the wall to keep prisoners from locking themselves in.
+}PRISONER,!TALK,!SPEAK,!ATTACK,!FIGHT,!KILL,!RELEASE,!RESCUE,!FREE,!FEED,*0100-11000000,$PRISONCELL2
+ [0]The prisoner [1]is starving,[2]has[0] withered away to almost nothing. Fresh wounds cover his upper body where it's not loosely covered by a tattered rag.
+ @FEED:-2:$PRISONCELL2
+ @FEED:+1-2+3+7:$RADIANTPOOL
+ @FEED:-1+2:^GRANITEGATE
+ @FEED:-1+2
+}WOUNDS,*0100-10000000,$PRISONCELL2
+ [0]There are several deep, painful scars and a handful of more recent wounds, but the blood has dried.
+}RAG,*0100-10000000,$PRISONCELL2
+ [0]This is the remnant of a fine shirt, reduced to almost nothing and covered with bloodstains.
+}BLOODSTAINS,*0100-10000000,$ARCHWAY
+ [0]The stains are all shades of red, some ancient and some much more recent.
+}PEEPHOLE,&HOLE,*0100-10000000,$CELLAR
+ [0]You look through the tiny peephole and see a room. There is a young man walking around inside! You try to communicate with him, but he doesn't hear you.
+}FOUNTAIN,&WATER,!JUMP,!SWIM,!DRINK,!SPLASH,*0100-10000000,$FOUNTAIN
+ [0]It's a small, bronze fountain with water all the colors of the rainbow. There is no detectable light source that would explain the color of the water.
+}POOL,&WATER,!SWIM,!JUMP,!SPLASH,*0100-10000000,$RADIANTPOOL
+[0]The pool water shines quite brightly and is mostly clear, with several swirls of rainbow color throughout.
+}GRANITEGATE,&GATE,!OPEN,!UNLOCK,!BREAK,!MOVE,*0100-11000000,$RADIANTPOOL
+ [0]This rough, granite gate is massive. I don't think it can be moved.[1] It blocks your path westward.[2] Thankfully, the prisoner you released has opened it for you.
+}DAGGER,!USE,!ATTACK,!KILL,!FIGHT,*1000-10000000,$ZARBURGARMORY
+ [0]It's a small, iron dagger with a totally blunt edge. It doesn't seem like it would be much use in a fight against any living creature.[1] The dagger shines with a bright, white light. You can barely look at it![2] The dagger hums angrily in the presence of the skeleton.[3] The dagger hums violently as the lich draws near!
+ @GET:-1:$ZARBURGARMORY
+}LICH,^D'RELLA,^DRELLA,^QUEEN,!FIGHT,!ATTACK,!KILL,!TALK,!SPEAK,*0100-10000000,$CRYPT
+ [0]The lich queen wears a luxurious purple robe that seems much darker than it really is. Her skeletal hands [1]are calm and still[2]fidget slightly[3]twist anxiously[0].
+}SARCOPHAGUS,!SEARCH,*0100-10000000,$CRYPT
+ [0]This ornate, broken sarcophagus was the final resting place of the lich. She escaped and took her wraithlike form eons ago. There is something curious here, probably worth a closer look.
+ @SEARCH:+P:^BUTTON
+}BUTTON,!PRESS,!PUSH,!USE,*0109-10000000,$CRYPT
+ [0]The button, apparently fashioned of gold, is perfectly square and recessed into the sarcophagus.
+ @PUSH:+7
+ @PUSH:+5:$CRYPT
+}RACKS,!KICK,!BREAK,!SMASH,!TIP,!MOVE,*0100-10000000,$ARMORY
+ [0]Although a bit rotted, the weapon racks are still quite sturdy.
+}SKELETON,!FIGHT,!ATTACK,!KILL,*0100-10000000,$ARMORY
+ [0]The skeleton is bleach white and moves about slowly, clattering bones all the while. It looks dangerous.
+ @FIGHT:-2:^DAGGER
+ @FIGHT:-1-2-3:$ARMORY
+}TENT,!ENTER,!REMOVE,!PITCH,!SEARCH,!STEAL,*0100-11000000,$ELVENCAMP
+ [0]It's a two-person, canvas tent. You hear a very low hum emanating from the fabric; the tent is probably warded. There are several runes dyed onto both sides.[1] It's very messy inside, might be worth checking.[2] There is a rope inside the tent.
+ @SEARCH:+P+A^ROPE
+ @SEARCH:&1-1+2
+ @ENTER:+P+A^ROPE
+ @ENTER:&1-1+2
+}CAMPSITE,*0100-10000000,$ELVENCAMP
+ [0]It's a very tidy campsite. There is a single, small tent on the west edge of the site.
+}SYMBOLS,^RUNES,^MARKINGS,!READ,*0100-10000000,$ELVENCAMP
+ [0]You can't read elvish. It hurts your head to even try.
+}DAMBEN,&ELF,&GUARDS,&ELVES,!TALK,!SPEAK,!FIGHT,!ATTACK,!KILL,!BRIBE,!PAY,*0100-11000000,$ELVENBARRICADE
+ [0]The dark-elven guards are armed to the teeth[1], but seem very friendly.[2] and their bows are trained on you as you move about.
+ @FIGHT:-1+2
+ @FIGHT:+4:$ELVENBARRICADE
+ @BRIBE:-1+2:$ELVENBARRICADE
+}BOWS,*0100-10000000,$ELVENBARRICADE
+ [0]The hand-shaped long bows are made of yew and can easily kill you.
+}BARRICADE,!BURN,!BREAK,!CLIMB,!DESTROY,!REMOVE,!DISMANTLE,!OPEN,!UNLOCK,*0100-10000000,$ELVENBARRICADE
+ [0]This heavily fortified barricade is cobbled together with spears and wood. There is no visible means to open it.
+}SPEAR,*0100-10000000,$ELVENBARRICADE
+ [0]There are many spears, all bristling at you from the barricade. They are securely fixed, you won't be able to take any.
+}VILLAGERS,&ELF,&ELVES,!TALK,!SPEAK,!FIGHT,!ATTACK,!KILL,*0100-10000000,$ELVENVILLAGE
+ [0]The villagers are all dark skinned, tall and slender. They are adorned with jewelry, yet the least attractive group of beings you have ever met.[1] The villagers surround you as you walk about, daring you to do anything foolish.
+ @FIGHT:+1
+ @FIGHT:-1+2:$ELVENVILLAGE
+}JEWELRY,*0100-10000000,$ELVENVILLAGE
+ [0]The jewelry that the drow wear is beautiful, made of precious stones and metals, and inlaid with runes and magic.
+}BUILDINGS,^HOMES,!BURN,!ENTER,*0100-10000000,$ELVENVILLAGE
+ [0]The drow homes are well made. The wood is polished and the logs are joined together with superior craftsmanship. [1]One of them has a few scorch marks on the side.
+ @BURN:+1
+ @BURN:-1+2:$ELVENVILLAGE
+ @BURN:+1:^VILLAGER
+}BENCHES,!SIT,!TIP,!TOPPLE,!FLIP,*0100-10000000,$ELVENVILLAGE
+ [0]Each bench is carved to seat four drow. They are all currently unoccupied as villagers move about.
+}PINE,^COPSE,&TREE,!CLIMB,*0100-10000000,$WOODS3
+ [0]This small group of pine trees grows next to a shaded trail leading out of the woods to the south.
+}TOWNHALL,^HALL,*0100-10000000,$ELVENTOWNHALL
+ [0]It's a large building, entirely open to the east. The business of the village is conducted here. Right now only the chieftain and a few elders are in sight.
+}CHIEFTAIN,^BELZAR,!TALK,!SPEAK,!FIGHT,!KILL,!ATTACK,!BOW,!KNEEL,!GENUFLECT,*0100-10000000,$ELVENTOWNHALL
+ [0]The chieftain is dressed plainly. His great wisdom is as plain as the small circlet of gold on his head, the only sign of his office. He regards you humbly, with no malice[1], in spite of your unprovoked attack[0].
+ @FIGHT:+1
+ @FIGHT:+1:^ELDERS
+}ELDERS,!TALK,!SPEAK,!FIGHT,!KILL,!ATTACK,*0100-10000000,$ELVENTOWNHALL
+ [0]A few tall, slender, and ancient drow talk in low voices with their chieftain. Wherever you move throughout the room, their backs remain turned to you, their turns coordinated in an unspoken ritual.[1] Both female and male, none fear you or are disturbed even slightly by your presence.
+ @FIGHT:+1
+ @FIGHT:+1:^CHIEFTAIN
+}BONFIRE,^FIRE,!LIGHT,!UNLIGHT,!EXTINGUISH,!SNUFF,*0100-10000000,$ELVENTOWNHALL
+ [0]The tall, bright fire burns in the middle of the hall, vented through a small hole in the roof. Surprisingly, the fire gives off almost no heat.
+}LOG,!TAKE,$ELVENTOWNHALL
+ [0]The logs are expertly bound together, supporting the great town hall with ease.
+}OPENING,&HOLE,!CLIMB,*0100-10000000,$ELVENTOWNHALL
+ [0]A nearly invisible hint of smoke spirals upward out of the hole in the roof.
+}BRACELET,!REMOVE,*0100-10000000,$ELVENTOWNHALL
+ [0]The bracelet is jet black about your wrist, with only a pale amber fringe around the edges.
+}BRANCHES,*0100-10000000,$CLIFFPATH
+ [0]The branches are more sparse from this side than they appear to be from the other.
+}COIN,^GOLD,^MONEY,!GIVE,!USE,*1001-11000000,$INVENTORY
+ [1]This is a[2]These are[0] solid gold coin[2]s[0] with the royal seal of Zarburg stamped on [1]it[2]them[0].
+}BACKPACK,^PACK,*1001-10100000,$INVENTORY
+ [0]It's a rugged backpack that contains the items you are carrying.[1] The backpack is currently empty.[2] The pack is starting to fill up.[3] The pack is over halfway full.[4] Your backpack is full. You'll have to drop something to carry more.
+<x>
+;line must end with an <x> followed by at least one more character in the file (like this line)

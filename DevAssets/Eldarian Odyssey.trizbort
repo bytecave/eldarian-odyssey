@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trizbort version="1.5.9.9">
+	<info>
+		<title>Eldarian Odyssey</title>
+		<author>Rich Eizenhoefer</author>
+		<description>Map for Eldarian Odyssey adventure game</description>
+	</info>
+	<map>
+		<room id="1" name="Zarburg South Gate" subtitle="" x="-1344" y="-320" w="160" h="128" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Locked gate</objects>
+		</room>
+		<room id="2" name="Zarburg Cliff" subtitle="" x="-1472" y="-288" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Die If Jump</objects>
+		</room>
+		<room id="3" name="Zarburg Courtyard" subtitle="" x="-1312" y="-416" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Mealbar</objects>
+		</room>
+		<room id="4" name="Zarburg Green Dragon" subtitle="" x="-1472" y="-448" w="96" h="96" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Map</objects>
+		</room>
+		<room id="5" name="Zarburg Treasury" subtitle="" x="-1472" y="-544" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>5 coins</objects>
+		</room>
+		<room id="6" name="Zarburg Throne Room" subtitle="" x="-1312" y="-576" w="96" h="96" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Permanent Torch|Note</objects>
+		</room>
+		<room id="7" name="Zarburg Bridge" subtitle="" x="-1152" y="-544" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="8" name="Zarburg Alleyway" subtitle="" x="-1152" y="-416" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="9" name="Zarburg Armory" subtitle="" x="-1152" y="-288" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Simple Dagger</objects>
+		</room>
+		<line id="11" name="" description="">
+			<dock index="0" id="2" port="e" />
+			<dock index="1" id="1" port="w" />
+		</line>
+		<line id="12" name="" description="">
+			<dock index="0" id="1" port="n" />
+			<dock index="1" id="3" port="s" />
+		</line>
+		<line id="14" name="" description="">
+			<dock index="0" id="3" port="e" />
+			<dock index="1" id="8" port="w" />
+		</line>
+		<line id="15" name="" description="">
+			<dock index="0" id="8" port="s" />
+			<dock index="1" id="9" port="n" />
+		</line>
+		<line id="10" name="" description="">
+			<dock index="0" id="8" port="n" />
+			<dock index="1" id="7" port="s" />
+		</line>
+		<line id="16" name="" description="">
+			<dock index="0" id="3" port="n" />
+			<dock index="1" id="6" port="s" />
+		</line>
+		<line id="17" name="" description="">
+			<dock index="0" id="5" port="ene" />
+			<dock index="1" id="6" port="w" />
+		</line>
+		<line id="13" name="" description="">
+			<dock index="0" id="3" port="wnw" />
+			<dock index="1" id="4" port="e" />
+		</line>
+		<room id="18" name="Zarburg Crossroads" subtitle="" x="-1152" y="-672" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="19" name="Empty Road" subtitle="" x="-1312" y="-672" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="20" name="Robber's Cave" subtitle="" x="-1472" y="-672" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Lockpick Tools</objects>
+		</room>
+		<line id="21" name="" description="">
+			<dock index="0" id="7" port="n" />
+			<dock index="1" id="18" port="s" />
+		</line>
+		<line id="22" name="" description="">
+			<dock index="0" id="18" port="w" />
+			<dock index="1" id="19" port="e" />
+		</line>
+		<line id="23" name="" description="">
+			<dock index="0" id="20" port="e" />
+			<dock index="1" id="19" port="w" />
+		</line>
+		<room id="24" name="Road to Woods" subtitle="" x="-992" y="-672" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="25" name="Woods 3" subtitle="" x="-992" y="-416" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>RTarget,|Once Available</objects>
+		</room>
+		<room id="26" name="Woods Buried" subtitle="" x="-992" y="-544" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Healing Potion|RT Target</objects>
+		</room>
+		<room id="27" name="Woods 2" subtitle="" x="-832" y="-544" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>RTarget</objects>
+		</room>
+		<room id="28" name="Woods Tree" subtitle="" x="-832" y="-416" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Climb for Route</objects>
+		</room>
+		<room id="29" name="Woods 1" subtitle="" x="-832" y="-672" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>RTarget</objects>
+		</room>
+		<line id="30" name="" description="">
+			<dock index="0" id="18" port="e" />
+			<dock index="1" id="24" port="w" />
+		</line>
+		<line id="31" name="" description="">
+			<dock index="0" id="24" port="e" />
+			<dock index="1" id="29" port="w" />
+		</line>
+		<line id="32" name="" description="">
+			<dock index="0" id="27" port="n" />
+			<dock index="1" id="29" port="s" />
+		</line>
+		<line id="33" name="" description="">
+			<dock index="0" id="26" port="n" />
+			<dock index="1" id="24" port="s" />
+		</line>
+		<line id="34" name="" description="">
+			<dock index="0" id="26" port="e" />
+			<dock index="1" id="27" port="w" />
+		</line>
+		<line id="35" name="" description="">
+			<dock index="0" id="27" port="s" />
+			<dock index="1" id="28" port="n" />
+		</line>
+		<line id="36" name="" description="">
+			<dock index="0" id="26" port="s" />
+			<dock index="1" id="25" port="n" />
+		</line>
+		<line id="37" name="" description="">
+			<dock index="0" id="28" port="w" />
+			<dock index="1" id="25" port="e" />
+		</line>
+		<room id="38" name="Elven Woods" subtitle="" x="-992" y="-288" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw">Respawn</objects>
+		</room>
+		<line id="39" name="" description="" style="dashed">
+			<dock index="0" id="25" port="s" />
+			<dock index="1" id="38" port="n" />
+		</line>
+		<room id="40" name="Elven Camp" subtitle="" x="-832" y="-288" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Rope for Rappel</objects>
+		</room>
+		<line id="41" name="" description="">
+			<dock index="0" id="40" port="w" />
+			<dock index="1" id="38" port="e" />
+		</line>
+		<room id="42" name="Elven Village" subtitle="" x="-1152" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="43" name="Elven Woods 2" subtitle="" x="-992" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Opens 2-way</objects>
+		</room>
+		<room id="44" name="Town Hall" subtitle="" x="-1312" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Undead Bracelet</objects>
+		</room>
+		<line id="46" name="" description="">
+			<dock index="0" id="43" port="w" />
+			<dock index="1" id="42" port="e" />
+		</line>
+		<line id="47" name="" description="">
+			<dock index="0" id="42" port="w" />
+			<dock index="1" id="44" port="e" />
+		</line>
+		<room id="48" name="Cliff Path" subtitle="" x="-1472" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Opens 2-way</objects>
+		</room>
+		<line id="49" name="" description="">
+			<dock index="0" id="44" port="w" />
+			<dock index="1" id="48" port="e" />
+		</line>
+		<line id="50" name="" description="" style="dashed">
+			<dock index="0" id="2" port="s" />
+			<dock index="1" id="48" port="n" />
+		</line>
+		<room id="51" name="Deep Chasm" subtitle="" x="-672" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Rappel in</objects>
+		</room>
+		<room id="54" name="Burrow" subtitle="" x="-512" y="-288" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw">Respawn</objects>
+		</room>
+		<room id="53" name="Elven Barricade" subtitle="" x="-832" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Elves open|if bribed</objects>
+		</room>
+		<line id="45" name="" description="">
+			<dock index="0" id="40" port="s" />
+			<dock index="1" id="53" port="n" />
+		</line>
+		<line id="55" name="" description="">
+			<dock index="0" id="53" port="w" />
+			<dock index="1" id="43" port="e" />
+		</line>
+		<line id="56" name="" description="" style="dashed">
+			<dock index="0" id="38" port="s" />
+			<dock index="1" id="43" port="n" />
+		</line>
+		<line id="57" name="" description="" startText="Down">
+			<dock index="0" id="51" port="w" />
+			<dock index="1" id="53" port="e" />
+		</line>
+		<room id="58" name="Clearing / River" subtitle="" x="-672" y="-416" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Rock</objects>
+		</room>
+		<line id="59" name="" description="">
+			<dock index="0" id="64" port="s" />
+			<dock index="1" id="51" port="n" />
+		</line>
+		<room id="60" name="Island" subtitle="" x="-672" y="-544" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw">Portcullis Key</objects>
+		</room>
+		<room id="61" name="Passageway" subtitle="" x="-512" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Portcullis|Needs Key</objects>
+		</room>
+		<room id="62" name="Hallway" subtitle="" x="-512" y="-416" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw" />
+		</room>
+		<room id="63" name="Fountain Room" subtitle="" x="-992" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="64" name="Meadow" subtitle="" x="-672" y="-288" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Fish Bait</objects>
+		</room>
+		<line id="67" name="" description="" style="dashed" endText="Swim">
+			<dock index="0" id="58" port="n" />
+			<dock index="1" id="60" port="s" />
+		</line>
+		<line id="68" name="" description="">
+			<dock index="0" id="64" port="n" />
+			<dock index="1" id="58" port="s" />
+		</line>
+		<line id="69" name="" description="">
+			<dock index="0" id="64" port="e" />
+			<dock index="1" id="54" port="w" />
+		</line>
+		<room id="73" name="Fish Pond" subtitle="" x="-512" y="-544" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Fishing Pole</objects>
+		</room>
+		<room id="74" name="Dragonling" subtitle="" x="-512" y="-672" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Throw Fish|Scepter</objects>
+		</room>
+		<room id="75" name="Alchemy Lab" subtitle="" x="-1152" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw" />
+		</room>
+		<room id="76" name="Prince Room" subtitle="" x="-1472" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw">Secret Door</objects>
+		</room>
+		<room id="82" name="Fake Maze" subtitle="" x="-512" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw">Needs map</objects>
+		</room>
+		<room id="83" name="Hallway Alcove" subtitle="" x="-512" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw" />
+		</room>
+		<room id="85" name="Dark Corridor" subtitle="" x="-672" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw" />
+		</room>
+		<room id="98" name="Stone Gate" subtitle="" x="-1312" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Prisoner Opens</objects>
+		</room>
+		<line id="70" name="" description="">
+			<dock index="0" id="54" port="s" />
+			<dock index="1" id="61" port="n" />
+		</line>
+		<line id="71" name="" description="">
+			<dock index="0" id="54" port="n" />
+			<dock index="1" id="62" port="s" />
+		</line>
+		<line id="72" name="" description="">
+			<dock index="0" id="62" port="n" />
+			<dock index="1" id="73" port="s" />
+		</line>
+		<line id="78" name="" description="">
+			<dock index="0" id="73" port="n" />
+			<dock index="1" id="74" port="s" />
+		</line>
+		<room id="79" name="Cellar" subtitle="" x="-1312" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw">Cool air</objects>
+		</room>
+		<room id="80" name="Crypt" subtitle="" x="-1472" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="n">Lich queen</objects>
+		</room>
+		<room id="81" name="Hallway 2" subtitle="" x="-672" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects at="wsw" />
+		</room>
+		<room id="84" name="Radiant Pool" subtitle="" x="-1152" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="" />
+		<room id="99" name="Armory" subtitle="" x="-832" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Skeleton</objects>
+		</room>
+		<room id="86" name="Prison Cell 1" subtitle="" x="-832" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="1" cornerTopRight="1" cornerBottomLeft="1" cornerBottomRight="1" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Needs key</objects>
+		</room>
+		<room id="87" name="Prison Cell 2" subtitle="" x="-992" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="no" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="0" cornerTopRight="0" cornerBottomLeft="0" cornerBottomRight="0" borderstyle="Solid" isDark="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSmallText="">
+			<objects>Give mealbar</objects>
+		</room>
+		<line id="77" name="" description="" style="dashed" startText="View">
+			<dock index="0" id="79" port="w" />
+			<dock index="1" id="76" port="e" />
+		</line>
+		<line id="88" name="" description="" style="dashed">
+			<dock index="0" id="80" port="n" />
+			<dock index="1" id="76" port="s" />
+		</line>
+		<line id="89" name="" description="" style="dashed">
+			<dock index="0" id="61" port="s" />
+			<dock index="1" id="82" port="n" />
+		</line>
+		<line id="90" name="" description="">
+			<dock index="0" id="82" port="w" />
+			<dock index="1" id="81" port="e" />
+		</line>
+		<line id="91" name="" description="">
+			<dock index="0" id="82" port="s" />
+			<dock index="1" id="83" port="n" />
+		</line>
+		<line id="92" name="" description="">
+			<dock index="0" id="83" port="w" />
+			<dock index="1" id="85" port="e" />
+		</line>
+		<line id="93" name="" description="">
+			<dock index="0" id="81" port="s" />
+			<dock index="1" id="85" port="n" />
+		</line>
+		<line id="94" name="" description="">
+			<dock index="0" id="85" port="w" />
+			<dock index="1" id="99" port="e" />
+		</line>
+		<line id="97" name="" description="">
+			<dock index="0" id="86" port="w" />
+			<dock index="1" id="87" port="e" />
+		</line>
+		<line id="101" name="" description="">
+			<dock index="0" id="99" port="w" />
+			<dock index="1" id="63" port="e" />
+		</line>
+		<line id="102" name="" description="">
+			<dock index="0" id="63" port="w" />
+			<dock index="1" id="84" port="e" />
+		</line>
+		<line id="103" name="" description="" style="dashed">
+			<dock index="0" id="84" port="w" />
+			<dock index="1" id="98" port="e" />
+		</line>
+		<line id="104" name="" description="">
+			<dock index="0" id="98" port="w" />
+			<dock index="1" id="80" port="e" />
+		</line>
+		<line id="95" name="" description="">
+			<dock index="0" id="84" port="n" />
+			<dock index="1" id="75" port="s" />
+		</line>
+		<line id="96" name="" description="">
+			<dock index="0" id="75" port="w" />
+			<dock index="1" id="79" port="e" />
+		</line>
+		<line id="100" name="" description="">
+			<dock index="0" id="81" port="w" />
+			<dock index="1" id="86" port="e" />
+		</line>
+	</map>
+	<settings>
+		<colors>
+			<canvas>White</canvas>
+			<border>MidnightBlue</border>
+			<line>MidnightBlue</line>
+			<selectedLine>SteelBlue</selectedLine>
+			<hoverLine>DarkOrange</hoverLine>
+			<largeText>MidnightBlue</largeText>
+			<smallText>MidnightBlue</smallText>
+			<lineText>MidnightBlue</lineText>
+			<grid>#F5F5F5</grid>
+			<startRoom>GreenYellow</startRoom>
+			<endRoom>Red</endRoom>
+		</colors>
+		<regions>
+			<NoRegion Name="NoRegion" TextColor="Blue">White</NoRegion>
+		</regions>
+		<fonts>
+			<room size="13">Comic Sans MS</room>
+			<object size="11">Comic Sans MS</object>
+			<line size="9">Comic Sans MS</line>
+		</fonts>
+		<grid>
+			<snapTo>yes</snapTo>
+			<visible>yes</visible>
+			<showOrigin>yes</showOrigin>
+			<size>32</size>
+		</grid>
+		<lines>
+			<width>2</width>
+			<arrowSize>12</arrowSize>
+			<textOffset>4</textOffset>
+		</lines>
+		<rooms>
+			<darknessStripeSize>24</darknessStripeSize>
+			<objectListOffset>4</objectListOffset>
+			<connectionStalkLength>32</connectionStalkLength>
+			<preferredDistanceBetweenRooms>64</preferredDistanceBetweenRooms>
+			<defaultRoomName>Cave</defaultRoomName>
+		</rooms>
+		<ui>
+			<handleSize>12</handleSize>
+			<snapToElementSize>16</snapToElementSize>
+		</ui>
+		<margins>
+			<documentSpecific>no</documentSpecific>
+			<horizontal>0</horizontal>
+			<vertical>0</vertical>
+		</margins>
+		<keypadNavigation>
+			<creationModifier>control</creationModifier>
+			<unexploredModifier>alt</unexploredModifier>
+		</keypadNavigation>
+	</settings>
+</trizbort>

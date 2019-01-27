@@ -1,0 +1,29 @@
+GAME CREDITS:
+  Main Author: Rich Eizenhoefer, ByteCave, Inc.
+  Beta Testers: Kyle Swinney, Shon Eizenhoefer
+  
+SPECIAL THANKS -------------------------------------
+In memoriam, Brent Stephens, my high school electronics teacher who brought a TRS-80 into the class room one fall day and changed the course of my life and career forever.
+
+Many thanks also to the members of forums.purebasic.com, the PureBASIC forums. It's an active community with a ton of content that was perfect for helping me learn PureBASIC syntax and operation.
+
+ATTRIBUTION ----------------------------------------
+I'd like to thank the following PureBasic forum members whose code I have used in this game:
+
+*Quick string search algorithm by pdwyer and mback2k
+~~mback2k unicode support
+~~~~http://www.purebasic.fr/english/viewtopic.php?p=267475#p267475
+~~pdwyer original version
+~~~~http://www.purebasic.fr/english/viewtopic.php?p=218258#p218258
+
+*Grayscale Module by Wilbert
+~~http://www.purebasic.fr/english/viewtopic.php?p=482418
+
+*Rainbow gradient from PureBasic documentation
+~~https://www.purebasic.com/documentation/Examples/2DDrawingAlpha.pb.html 
+  
+>>>> Special note to all future contributors: 
+~~~~~Please add yourself to the credits when contributing.
+<<<<
+
+THANKS FOR TAKING A LOOK AT MY GAME!

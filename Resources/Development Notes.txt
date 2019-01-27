@@ -1,0 +1,222 @@
+﻿;
+;GitKraken - history For one file
+;Press control/cmd + p
+;Type history
+;Enter in the filename you wish To view the history of
+;
+
+CLIMB DOWN THE GREEN TREE With THE ROPE
+Find Noun
+If Found
+  Find Prev+Noun
+  If Not Found
+    Find Noun+Next
+  EndIf
+Else
+  //noun from context
+EndIf
+
+Back up from found noun
+Loop from 1 To Before found noun
+Is Word Not an article
+   Add To verb + " "
+End If
+Next
+
+Did we Not find a noun?
+  Loop through objects in grid location
+    Search For a matching verblist
+                If found 
+                  If we already have a contextual noun
+                    Respond With "<VERB> what?"
+                  Else
+                    Set contextual noun
+                  EndIf
+                End If
+  Loop up
+DoneNounCheck
+
+Search Verb List For the 
+
+
+
+
+Start right after noun
+Loop from right after noun To End
+Is Word "AND or OR?"
+   Flag Need 2nd Noun
+Else
+   Is Word 
+   
+   
+Find noun. If found... crawl noun synonym List.
+   
+   
+ptrnew = Add element For new noun
+    ptrbase = Lookup "refers to" noun
+                If Not ptrbase
+                  ERROR
+                Else
+                  ptrnew\ptrnoun = ptrbase   ;new node always points back to parent
+      While ptrbase exists
+        If ptrbase\ptrSynonym
+                      ptrbase = ptrsynonym
+                    Else
+                      ptrbase\ptrsynonym = ptrnew
+                                  Break
+                    EndIf
+                  Wend
+                EndIf
+                
+                If Not ptrbase
+                  ptrbase = addnewelement
+                  
+   
+  Data.s "TREE,*,!CLIMB,!CHOP<p>WITH;USING<n>AXE,!SEARCH"
+  Data.s "AXE,!USE"
+  Data.s "HATCHET,^AXE"
+  Data.s "FISH,*,!CATCH,!COOK<p>ON<n>FIRE,!CLEAN,!GUT,!EAT"
+  
+  
+  
+  So, I won't even search for hatchet unless i find axe first? untrue, I will find axe
+  
+  
+;Data idea from February 2018
+[BOTTLE]
+verbs=DIG,SEARCH
+stateflags=0100
+state=10000000
+room=$WOODSBURIED
+adjective=
+multi=
+statestring="[0]It's a hard glass bottle, but most of it is buried. You'll have to dig it up."
+statestring="[1] There really isn't a state 1.
+statechange=DIG,@BOTTLE:+1-2,$WOODSBURIED:-1
+
+[POTION]
+verbs=DRINK,IMBIBE,QUAFF,SIP
+stateflags=0009
+state=10000000
+room=$WOODSBURIED
+adjective=ELIXIR
+statestring="[0]Effervescent, green liquid swirls inside. Drinking it will heal you of damage."
+
+
+ZSG
+Chop tree - it falls in front of gate. 1 command later, watchman comes out And closes gate behind him.
+
+Knock gate. 5 seconds later watchman opens window in gate. Must still be in room To see it. Otherwise, triggers when back in room. This is a new room state.
+
+Climb tree - see into Zarburg And notice the watchman. Watchman noun state becomes playeraware.
+
+Burn gate - knocked out And revived 5 seconds later. 
+
+Burn tree - Smokey Bear won't allow.
+
+Climb gate - can't climb
+
+Pay/Bribe watchman-unlocks And ooens gate
+
+=========CRYPT NOTES========================
+CRYPT
+================
+ONENTRY
+*****************************************
+IF don't have ward or if torch off
+ Die immediately on entry  ***DEAD***
+ Mention ward and need for light
+ELSE
+
+A darkened, wizened lich glides toward you. "Who dare disturb Queen D'rella?!"
+
+If have dagger
+  Your dagger explodes into brilliant white and vibrates fiercely; you almost drop it! The lich pauses, then continues. "I fear not thy weapon, foolish adventurer."
+
+If have Eldred's everlasting light
+  The undead wizard shies away from the light of your torch. "The Lightbringer's bane! Most interesting." In a moment, light springs from your torch and becomes a part of the room, filling the space. Your torch flutters out, but the light remains.
+  
+If have scepter
+  "A scepter worthy of a prince. Thou hast met mine dragonling!"
+  
+TALK
+**********************************
+If first talk
+  If not have all 3
+    fAboutToDie = #True
+  else
+    "Let me be lest I strike thee down, worm."
+	#STATE7 ;talked once already
+  endif
+else
+  "Take thy leave, runt. My patience runs thin."
+endif
+  
+
+FIGHT
+*******************************************
+If have all 3 items
+  Lich dies (add lich #STATE7 and move to #ITEMGONE)
+  #STATE7
+
+  Lich - lich dead so secret door can be found and opened
+  #STATE3 dagger removed, no more dagger hum
+else
+  fAboutToDie = #True
+endif
+  
+If fAboutToDie
+  D'rella screams, "you have come unprepared, now die!" Shocking streaks of blue and velvet streak from her withered claws. You feel like you're being torn apart before you die, most wretchedly.  ***DEAD***
+endif
+
+
+Drop map says how frustrating but shows marked directions clearly
+
+
+GRAB
+FEED DRAG
+
+you teleport out of the maze
+s/b
+you WILl teleport out of the maze
+
+on entry to armory. 
+if have dagger 
+  if skeleton here
+    say it begins to vibrate
+if no have dagger, say you could really use a weapon. do you know of another armory?
+
+Skeleton #STATE7 is NOT in armory any more
+Armory #STATE7 is skeleton gone
+On Entry
+
+ 
+ 
+ killing skeleton doesn't stop dagger hum
+ use dagger after skeleton dead
+ rack handler
+ 
+ no malnourished after feed
+ 
+ Need ROCK handler
+ 
+ prisoner is starving after feeding
+ out of the cell to HIS freedom
+ 
+ remove PRess F5 text
+how to deal with dropping the torch in crypt, or the torch going out.
+once crypt lit, it stays lit as long as player is in it, even if torch dropped or extinguished
+  need some way to keep GG\fLightSource on while in the crypt and with light permanent on
+  #STATE7(?) of the torch is set on entry to crypt. #STATE7 removed onentry to archway
+  in TorchHandler, if light turned off, keep it on if state 7.
+  similarly, if light goes out, keep it on anyhow with state 7. need to ensure we turn it
+   OFF again in onentry to archway (check #torchturns left)
+   
+ hands are calm and stilltwist anxiously - bug fix
+ 
+N is white for state 9, shouldn't be anything
+
+dagger not burning white when lich is in room
+following items are here: lich
+inventory placeholder remove
+ 

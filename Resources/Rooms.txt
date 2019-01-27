@@ -1,0 +1,136 @@
+;Eldarian Odyssey Rooms 
+;(x,y) = location in room grid array
+;NSEW positions: 0=no,1=yes,2=locked,3=closed,5=blocked,6=teleport,7=confusing,9=codehandler <--these numbers help us draw the map
+;normally dark, 1 or 0 + initial room state: 0-7.
+;strings based on [state] value. If [n] state is set, [n] string will be printed.  [*] is string for "dark" state.
+
+;reserved for player inventory--this fake room holds all items that user is carrying
+}INVENTORY
+;reserved for items that are unavailable, destroyed or otherwise lost by player
+}ITEMGONE 
+ ;reserved for temporary location to put inventory items when backpack is dropped
+}TEMPSTORAGE
+
+}EMPTYCAVE,(0.0),^0010,*111100000
+ [*]You're in a dark cave.[0]This small cave is empty. It looks like a good hiding spot.
+}EMPTYROAD,(1.0),^0011,*010000000
+ [0]You're on a long, empty road, devoid of any interesting feature or landmark.
+}ZARBURGROAD,(2.0),^0111,*011000000
+ [0]This T intersection branches to the east and west.[1] A weathered signpost stands a solitary watch over this otherwise barren way point.[2] A broken signpost lays haplessly in the middle of the road.
+}ZARBURGTREASURY,(0.1),^0010,*010000000
+ [0]This is the Zarburg treasury. The royal clerk stands[1] smirking[2] alert[0] behind a polished desk and two Royal Sentinels stand at [2]angry [0]attention in front of a large vault.
+}ZARBURGTHRONEROOM,(1.1),^0101,*011010101
+ [0]This is where things happen in Zarburg, and all the hustle and bustle of the court is on display.[1] The King, Eldred of the Everlasting Light, [5]sits on[6]stands next to[1] his throne looking quite imperial, and quite worried.[2] The visibly angered king stands off to the side of his throne, two hulking Royal Defenders watch you with murder in their eyes.[0] The petitioner queue is empty at this time of day[1], but the Defenders stationed around the throne [3]are alert[4]track your every move[0].[7] A sole petitioner rises from his knee in front of the king as you enter, then quietly leaves the room.
+ @POSTENTRY:-7
+}ZARBURGBRIDGE,(2.1),^1100,*010000000
+ [0]This is the bridge leading in and out of Zarburg. It's a bit aged, but well built and sturdy.
+}ZARBURGINN,(0.2),^0010,*011101000
+ [0]You are in the Green Dragon Inn, a dimly lit, seedy establishment on the far west side of town.[1] A cloaked Drow (dark elf) [2]sits alone at a corner table.[3]stands menacingly near a corner table.[4] A young barmaid stands behind the bar, looking out the door to the east.[5] The barmaid cowers and weeps behind the bar. Her frightened, wide-eyed stare tracks your every move as if you were the devil himself.
+}ZARBURGCOURTYARD,(1.2),^1111,*011000000
+ [0]This is the main courtyard of Zarburg, drab and without decoration.[1] There is a merchant here, selling meal bars on a tray.[2] A merchant here gives you a nod and looks apologetically at his empty tray.[3] The merchant fixes you with an angry stare, his hand resting on his trusty blunderbuss.[0] There is an alleyway leading east and buildings toward the north and west.
+}ZARBURGALLEYWAY,(2.2),^1101,*010000000
+ [0]This dimly lit alley is the only path out of town. Several rats are scurrying about.
+}ZARBURGCLIFF,(0.3),^0010,*010000000
+ [0]The western edge of Zarburg drops off sharply. The cliff here is wet and quite slippery. You can't see all the way down through the clouds. Danger![1] There is a small opening through some branches to the south.
+}ZARBURGSOUTHGATE,(1.3),^2001,*011000000
+ [0]The Zarburg town gate stands tall immediately to the north; [1]the gate is locked closed[3] but a watchman is sizing you up through a small window[1].[2]the gate is open and the watchman standing here looks very content.[0] There is a large oak tree here with some wood stacked haphazardly nearby.[4] A tall oak tree with an axe embedded in it lies crashed in front of the gate.[0] A narrow path leads toward a cliff to the west.
+ %[0]Welcome to Eldarian Odyssey, a late 70's based text adventure game. Type commands to interact with the world, discover the objective, and win the game! Type HELP for more assistance. Press F5 to toggle theme.^^You are carrying a backpack and an unlit torch. A glowing silver band is fixed about your neck.
+}ZARBURGARMORY,(2.3),^1000,*111000000
+ [*]It's very dark in here, with a faint metallic odor.[0]You're in the Zarburg armory. You remember hearing one of the guards patrolling Zarburg say that the armory was emptied for cleaning.[1] One small dagger, apparently overlooked, lies in a corner.
+}OAKROOM,(7.0),^0000,*011110000
+ [0]You are high up in the oak tree.[1] Through the branches you can see over the gate to the town of Zarburg.[2] There is a watchman [3]sleeping in a worn-down chair[4]dancing excitedly[5]standing alert[2] near the gate.[1] From this vantage point, you notice a small knocker attached to the gate.
+}BIRCHROOM,(7.1),^0000,*110000000
+ [*]It's dark up here, you can barely see your hands in the dim light that reaches here from above.[0]You have climbed up into the old birch tree. From here you can see several other trees, all tightly packed together.
+}FIRROOM,(7.2),^0000,*010000000
+ [0]You are about midway up the ancient fir. The sunlight reaches here, so you can see a little. Around you are dozens of trees, all clumped together. The branches are much thinner above you.
+}FIRROOM2,(7.3),^0000,*011000000
+ [0]You are in an open spot near the top of the tree. Below you to the southwest, near a copse of pine,  you can see a trail leading out of the woods![1] As you settle in, a large branch next to you breaks off and falls to block the path to the south.
+ @POSTENTRY:-1
+ @POSTENTRY:+1:$WOODSTREE
+ @POSTENTRY:+1:$WOODS3
+}WOODSROAD,(3.0),^0111,*010000000
+ [0]This road leads into the woods to the south and east, and back toward Zarburg to the west.
+}WOODS1,(4.0),^6761,*110000000
+ [*]These dark woods barely let any light through.[0]You're in a dense tangle of old wood forest. Scattered trails and branches lead everywhere. It's almost impossible to tell where you're going or where you've been.
+}WOODS2,(4.1),^7767,*110000000
+ [*]These dark woods barely let any light through.[0]You're in a dense tangle of old forest. Scattered trails and branches lead everywhere. It's almost impossible to tell where you're going or where you've been.
+}WOODS3,(3.2),^7676,*110000000
+ [*]These dark woods barely let any light through.[0]You're in a dense tangle of old wood forest. Scattered branches and trails lead everywhere. It's almost impossible to tell where you're going or where you've been[1], but next to a small stand of pine trees a trail out of the woods leads south[0].
+}WOODSBURIED,(3.1),^1776,*111010000
+ [*]You feel trees and brush all around you but it's too dark to make things out.[0]There are a variety of trees all around you in these dense woods.[3] You briefly stumble over[4] You see[1] a bottle that is mostly buried near the base of a singular[2] You stand in front of a lone[0] birch tree[5], a swirly green potion lying at its base[0].
+ @POSTENTRY:&3-3+4
+}WOODSTREE,(4.2),^1661,*110000000
+ [*]It feels less crowded here, but you definitely feel bark.[0]A giant fir tree stands tall above the rest of the forest.[1] The way to the south is blocked.
+}ELVENWOODS,(3.3),^1010,*010000000
+ [0]The woods are brighter here, with an almost ethereal quality. The change between the dark woods and this spot is stark, but reassuring.[1] There is a barely discernible trail leading south.
+}ELVENCAMP,(4.3),^0101,*010000000
+ [0]You've found a campsite. It is small, neat and efficiently laid out. There is a small tent with elven markings off to one side.
+}ELVENBARRICADE,(4.4),^1015,*011010000
+ [0]There are two dark elf Damben standing here[3], they seem to have been expecting you as they joke with you about how much noise you made walking through the forest to the north[4], their bows ready and their eagle eyes watching every step you take[0].[1] A tall barricade blocks the path to the west.[2] A tall, wooden barricade stands open to the west.[0] The land drops off steeply to the east.
+ @POSTENTRY:-3
+}ELVENWOODS2,(3.4),^1011,*010000000
+ [0]The woods are quite sparse here. The remaining trees have been groomed to create something of an archway between the east and west. A path leads north. It would be difficult to notice when coming from the other end.
+ @ONENTRY:+1:$ELVENWOODS
+}ELVENVILLAGE,(2.4),^0011,*011000000
+ [0]You are surrounded by a dozen log buildings and several wooden benches.[1] Villagers scurry about, glancing at you every now and then, but generally going about their business.[2] A ferocious mob follows you about, ready to close in should anything exciting begin.
+}ELVENTOWNHALL,(1.4),^0011,*010000000
+ [0]You are in the drow townhall. This is a large log structure with a huge bonfire burning inside. There is a small opening in the ceiling. A few elders stand in a circle, talking to the drow chieftain.
+}CLIFFPATH,(0.4),^1010,*010000000
+[0]You can see through some branches at the top that this narrow path winds upward toward a cliff.
+ @ONENTRY:+1:$ZARBURGCLIFF
+}DEEPCHASM,(5.4),^0001,*010000000
+ [0]This is the lip of a deep chasm. You can see color at the bottom, but it's not possible to make out what's down there. There is a stump here, next to the edge of the chasm[1], with a climbing rope tied around it[0].
+}MEADOW,(5.3),^1010,*011000000
+ [0]This peaceful meadow is full of colorful flowers.[1] A multicolored, fist-size mushroom grows in the middle.[0] You see a rope dangling from the nearby chasm wall.
+}CLEARING,(5.2),^8100,*011000000
+ [0]This wide-open space is covered with grass. You can see a small island to the north, across a slow moving river.[1] A smallish stone lies near your feet.
+}ISLAND,(5.1),^0800,*010000000
+ [0]This tiny island is featureless except for a small[1], broken[0] box near the center. The current runs gently to the south, but all other directions are surrounded by raging water due to the unique geography of the island.
+}BURROW,(6.3),^1101,*110000000
+ [*]It's dark, cramped and wet in here.[0]This tiny burrow leads back out to the meadow and also has narrow passages to the north and south. There is a strong glow in the distance to the north.
+}PASSAGEWAY,(6.4),^1200,*011000000
+ [0]A heavy iron portcullis gate [1]blocks pass to the south.[2]is retracted up into the ceiling, allowing passage.
+}HALLWAY,(6.2),^1100,*010000000
+ [0]This empty hallway is hewn from the subterranean rock. There is a strong bioluminescent glow from the walls; it's like daylight in here! It is likely that the same glowing phenomenon occurs throughout the underground lair.
+}FISHPOND,(6.1),^1100,*011000000
+ [0]There is a deep, rounded pond here. You can see a few fish darting below the surface.[1] A rickety fishing pole leans against the west wall.[2] An old fishing pole shimmers at the bottom.
+}DRAGONLING,(6.0),^0100,*111100000
+ [*]You can't see anything, but it feels quite hot in here.[0]Wow, it's hot in here! The room is heavily spotted with piles of igneous rock.[1] There is a small, hungry-looking dragonling perched on a dais in the middle of this circular room.[2] You notice that he is sitting on top of... something.[3] There is a shiny scepter on top of the dais.[4] There is an empty dais here.[5] A dragonling lays against the curved wall as he nibbles delicately at the fish you gave him.
+}HALLWAY2,(5.5),^0112,*011000000
+ [0]This barren hallway ends with [1]a locked [2]an unlocked [0]prison cell at its west end.
+}PRISONCELL1,(4.5),^0011,*110000000
+ [*]It's very cold in here.[0]This cell is unoccupied, with only a dim glow from the walls.
+}PRISONCELL2,(3.5),^0010,*111100000
+ [0]This is a small, cramped, stone-floored cell. [1]There is a tortured[2], malnourished[1] prisoner here.
+}FAKEMAZE,(6.5),^1666,*010000000
+ [0]The map you received from the drow makes it easy to navigate the maze you are in and exit to the north, south, or west.[1]You're in a fiendish maze.[2]You're lost in a maze. You need a map.[3]The maze is impossible to navigate. You recall hearing of a map somewhere in Zarburg.[4]When you move north, you will teleport out of the maze. Odd.[5]This maze seems to go on forever.[6]How frustrating to be lost in the maze.[7]Ugh. A maze. You'll never get out!
+}ALCOVE,(6.6),^1001,*010000000
+ [0]You're in a narrow alcove. The walls glow as in so many other rooms down here.
+}CORRIDOR,(5.6),^1011,*110000000
+ [*]No glowing walls here, it's pitch black![0]You're in a long, dimly lit corridor.
+}ARMORY,(4.6),^0011,*111000000
+ [*]This room feels very dry. It's black as midnight.[0]This room was an armory in ancient times, but its racks stand empty now.[1] There is an animated skeleton in here with you, stalking you menacingly.[2] Your dagger turns white and begins to hum angrily![3] If only you had a weapon from the Zarburg armory.
+ @POSTENTRY:-2-3
+}FOUNTAIN,(3.6),^0011,*010000000
+ [0]Rainbow showers of water fall within a beautiful fountain that overflows down a gentle slope to the west.
+ ;On entry, prisoner pushes some hidden buttons and the stone gate slides open.
+}RADIANTPOOL,(2.6),^1015,*010100000
+ [0]A deep, radiant pool fills most of this room, fed by the fountain to the east.[1] As you enter the room, you see the prisoner you freed pushing a few hidden buttons on a huge gate on the far side of the room. The gate slowly slides open. The ex-prisoner shouts "there is more than one way out of the crypt!" then dashes past you on the other side of the pool.[2] A heavy, granite gate blocks the way to the west.[3] A heavy, granite gate has been opened to the west.
+ @POSTENTRY:&7-1+3
+}ARCHWAY,(1.6),^0011,*010000000
+ [0]This grand, stone archway is several feet long, running east-west. There are bloodstains all over the walls and floor.
+ @ONENTRY:-7:TORCH
+}CRYPT,(0.6),^9010,*110000000
+ [*]As you enter the room, you feel an icy coldness that stabs to your heart, stopping its beating. You have died. Remember to prevent the darkness next time, and to make sure you have an elven ward.[0]This dusty crypt is bare, save[6] the fearsome lich queen and[0] a sarcophagus, long destroyed. [1]A dark, wizened lich glides toward you. "Who dare disturb Queen D'rella?!"[2] Your dagger explodes into brilliant white and vibrates fiercely; you almost drop it. The lich pauses, then continues. "I fear not thy weapon, nor thy wards, foolish adventurer."[3] The undead wizard shies away from the light of your torch. "The Lightgiver's bane! Most interesting." In a moment, light springs from your torch and becomes a part of the room, filling the space.[4] Noting the artifact you retrieved from the dragonling, the lich speaks once again. "A scepter worthy of a prince. Thou hast met mine dragonling!"[5] A small doorway is opened in the north wall.
+ @ONENTRY:+7:^TORCH
+ @POSTENTRY:+0-1-2-3-4-6
+ @POSTENTRY:!7+6
+}PRINCE,(0.5),^0100,*001000000
+ [0]You are in an empty room just off of the crypt. The prince was held here.[1]You have found Eldred's son, Rynn, the half-elven crown prince of Zarburg! He thanks you, "I went in search of fame and glory and was captured by the terrifying lich. You have defeated her, you must have found my scepter! I can never repay you, bold adventurer. See my father in Zarburg for your reward." The prince takes his scepter and leaves you. Quickly, back to Zarbug!
+ @POSTENTRY:+0-1
+}CELLAR,(1.5),^0010,*110000000
+ [*]You can't see a thing, but there's a nearly imperceptible breeze from the west.[0]The air is cooler on the west side of this dank cellar. There is a very tiny hole showing a sliver of light from the west wall.
+}ALCHEMYLAB,(2.5),^0101,*010000000
+ [0]Going by the lingering smell, this old lab was used for alchemy in the past. The room is bleak and empty.
+<x> 
+;line must end with an <x> followed by at least one more character in the file (like this line)

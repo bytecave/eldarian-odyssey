@@ -1,0 +1,9 @@
+Eldarian Odyssey is a classic late 1970's text adventure game. Your goal is to explore the environment, find clues, solve puzzles, and achieve the final objective.
+
+The game can generally only recognize two word commands such as "LIGHT TORCH." Certain words will be ignored, however, so you have some leeway. As you play, you'll get a feel for what type of input is expected. For instance, sometimes a single verb will work if it's possible to figure out which object it uniquely applies to. You usually only have to type the first four letters of each word, but it's okay to type the whole word. 
+
+Some commands are: SAVE, LOAD, INV or INVENTORY, GET/TAKE, DROP, EXAMINE, LOOK, QUIT, EXIT, GO/MOVE <direction: N,S,E,W>. There are several other actions you can take, and most can be combined with the name of an object. If you try a command and it doesn't work, try again with different words. You can even try to strike up a conversation!
+
+After closing this help text, you can press F1 or F2 to learn more about the game or view the credits.
+
+Good luck, brave adventurer!

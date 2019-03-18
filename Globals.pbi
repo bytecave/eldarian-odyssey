@@ -3,7 +3,7 @@
 #PARSELEN = 4
 
 #MAXPERROOM = 10    ;maximum number of items per room
-#MAXINVENTORY = 13  ;12 + 1 for the bracelet
+#MAXINVENTORY = 10  ;9 + 1 for the bracelet
 
 #ROOMX = 8
 #ROOMY = 8
@@ -172,7 +172,8 @@ Global NewMap Verbs.s()      ;mapkey is #PARSELEN characters of verb. Full verb 
 Global NewMap Rooms.ROOM()   ;find map elements by full room name
 Global Dim rgMove.MOVE(#ROOMX, #ROOMY)
 
-; IDE Options = PureBasic 5.70 LTS beta 1 (Windows - x64)
+; IDE Options = PureBasic 5.70 LTS (Windows - x64)
 ; CursorPosition = 9
+; FirstLine = 6
 ; Folding = -
 ; EnableXP

@@ -81,7 +81,7 @@ enu:
   nounverberr:
   Data.b 3
   Data.s "[nounverberr01]", "I recognize the words but I'm not sure how to make sense of them. Try a different command."
-  Data.s "[nounverberr02]", "50,I see an object and action, but not sure how to combine them."
+  Data.s "[nounverberr02]", "I see an object and an action, but not sure how to combine them."
   Data.s "[nounverberr03]", "20,Valid thing, valid action. Invalid sequence; I can't figure it out."
   nounverberrend:
   
@@ -144,7 +144,7 @@ EndDataSection
 
 
 
-; IDE Options = PureBasic 5.70 LTS beta 1 (Windows - x64)
-; CursorPosition = 107
-; FirstLine = 77
+; IDE Options = PureBasic 5.70 LTS (Windows - x64)
+; CursorPosition = 83
+; FirstLine = 36
 ; EnableXP

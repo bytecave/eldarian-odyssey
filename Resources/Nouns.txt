@@ -44,10 +44,12 @@
 }AXE,^AX,!USE,!SWING,*0009-10000000,$ZARBURGSOUTHGATE
  [0]It's a beautiful hand-crafted axe with a very sharp blade.[1]The axe is broken and lodged firmly into the fallen tree, its blade twisted and chipped.
  @GET:-1:^STACK
+ @GET:-3:$ZARBURGSOUTHGATE
 }STACK,&WOOD,!SEARCH,*0101-10100000,$ZARBURGSOUTHGATE
  @SEARCH:+1-2
- @SEARCH:+A+P^AXE
- [0]Random sizes of wood are stacked loosely on top of each other.[2] You see a brief sparkle from the stack, might be worth a closer look.[1] There is an axe lodged in the stack.
+ @SEARCH:+A+P:^AXE
+ @SEARCH:+3:$ZARBURGSOUTHGATE
+ [0]Random sizes of wood are stacked loosely on top of each other.[2] You see a brief sparkle from the stack, might be worth searching.[1] There is an axe lodged in the stack.
 }OAK,&TREE,!CLIMB,!UP,!DOWN,!CHOP,!CUT,!DESCEND,!BURN,*1101-10000000,$ZARBURGSOUTHGATE
  @CHOP:-0+1-A+F:^AXE
  @CHOP:+4:$ZARBURGSOUTHGATE
@@ -137,7 +139,7 @@
  @FIGHT:+1+7
  @FIGHT:-2+3:$ZARBURGINN
  @FIGHT:-1:^TABLE
-}BARMAID,^MAID,!TALK,!SPEAK,!FLIRT,!FIGHT,!ATTACK,!KILL,*0100-10000000,$ZARBURGINN
+}BARMAID,^MAID,!TALK,!SPEAK,!FLIRT,!KISS,!FIGHT,!ATTACK,!KILL,*0100-10000000,$ZARBURGINN
  [0]The barmaid is an unassuming young innocent. Her attention remains fixed on the door.[1]The barmaid's hatred for you is surpassed only by her fear of you.
  @FIGHT:-0+1
  @FIGHT:-4+5:$ZARBURGINN
@@ -179,11 +181,11 @@
  @CATCH:-A-1:^HOOK
  @CATCH:-A:^LINE
  @CATCH:+2:$FISHPOND
- @DRAGONLING:-0+1+F-A
- @DRAGONLING:-0-1+2:^DRAGONLING
- @DRAGONLING:-1-2+3+5:$DRAGONLING
- @DRAGONLING:-1+2:^DAIS
- @DRAGONLING:+P+A:^SCEPTER
+ @THROW:-0+1+F-A
+ @THROW:-0-1+2:^DRAGONLING
+ @THROW:-1-2+3+5:$DRAGONLING
+ @THROW:-1+2:^DAIS
+ @THROW:+P+A:^SCEPTER
 }POLE,!USE,!BAIT,*1000-10000000,$FISHPOND
  [0]This is an ill-used, hand-carved fishing pole with a short line and a hook.[1] There is a small chunk of mushroom on the hook.[2]The pole lies deep at the bottom of the strange pond; it's out of reach.
  @GET:-1:$FISHPOND
@@ -199,8 +201,11 @@
 }DAIS,*0100-11000000,$DRAGONLING
  [0]The white, marbled dais [1]supports a young dragonling.[2]holds a shiny, golden scepter.[3]stands empty in the middle of the room.
 }SCEPTER,!USE,!HOLD,*0009-10000000,$DRAGONLING
- [0]This regal golden scepter looks worthy of a prince. It vibrates gently in your hand with a mysterious power.
+ [0]This regal golden scepter looks worthy of a prince.[1] It vibrates gently in your hand with a mysterious power.
+ @GET:+1
  @GET:-2+3:^DAIS
+ @GET:-3+4:$DRAGONLING
+ @DROP:-1
 }DRAGONLING,!KILL,!ATTACK,!FIGHT,!POKE,!TALK,!SPEAK,!SCREAM,!FEED,*0100-11000000,$DRAGONLING
  [0]The winged dragonling is confidently perched on a dais, following you with his wide eyes.[1] There's something underneath him; you can't make out what it is.[2]The dragonling is facing the wall, happily eating his fish.
 }IGNEOUS,^PILE,&ROCK,*0100-10000000,$DRAGONLING

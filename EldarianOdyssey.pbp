@@ -7,7 +7,7 @@
   <section name="data">
     <explorer view="..\PureBasic\" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2019-01-27 16:35" user="bytecave" host="MENWY"/>
+    <lastopen date="2019-03-17 21:24" user="bytecave" host="MENWY"/>
   </section>
   <section name="files">
     <file name="AdventureCore.pbi">
@@ -20,7 +20,7 @@
     </file>
     <file name="DoThings.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="2a1bc27b4e440bae997c829ed063a42d"/>
+      <fingerprint md5="61fc474a6aedb757b929ce8713e1e447"/>
     </file>
     <file name="EldarianOdyssey.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
@@ -32,7 +32,7 @@
     </file>
     <file name="Globals.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="220c9c60bc31b85375df3461a2d3783d"/>
+      <fingerprint md5="43116df6a464d2bd20b2dade0282c423"/>
     </file>
     <file name="Grayscale.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
@@ -40,7 +40,7 @@
     </file>
     <file name="Handlers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="435fd25fd965dba5b995a6ccc3e80fed"/>
+      <fingerprint md5="19356d6e75f99af9759e786789c980a7"/>
     </file>
     <file name="Helpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
@@ -72,7 +72,7 @@
     </file>
     <file name="StringTable.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="56fff76d9d92bc1a1af6ae0d22694f38"/>
+      <fingerprint md5="2c2336fc82a8c5fadbc45f8fec74e8ff"/>
     </file>
     <file name="TextHelpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>

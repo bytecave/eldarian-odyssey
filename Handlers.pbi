@@ -764,7 +764,7 @@ Procedure.i FishHandler(strVerb.s, strNoun.s)
       str + "not fully understanding the very moment when you committed to it."
       
     Case "FEED"
-      str = "Dragonlings love fish."
+      str = "Dragonlings love fish. And they love to hunt."
       
     Case "SPEA", "TALK"
       str = Chr(34) + "Here fishy, fishy!" + Chr(34) + ". You're out of luck, the fish is dead."
@@ -779,7 +779,7 @@ Procedure.i FishHandler(strVerb.s, strNoun.s)
         str = "You throw the fish into the room and the dragonling flits from his perch to go get it. He ignores you and proceeds to eat."
         
         ChangeItemRoom("FISH", GG\ptrRoom\strRoom, #INVENTORY)
-        ChangeStateAction("DRAGONLING", "FISH")
+        ChangeStateAction("THROW", "FISH")
       EndIf        
     Default
       fRC = #False
@@ -796,7 +796,7 @@ Procedure.i DragonlingHandler(strVerb.s, strNoun.s)
   
   Select strVerb
     Case "KILL", "ATTA", "FIGH", "POKE"  ;attack, fight
-      str = "A jet of molten fire encompasses you, searing your flesh as you die in a burst of deep red and pain. The flashing color of the band about your next blends with the burning crimson."
+      str = "A jet of molten fire encompasses you, searing your flesh as you die in a burst of deep, red pain. The flashing color of the band about your next blends with the burning crimson."
       GU\fGray = #True
       GU\fPauseInput = #True
 
@@ -1513,7 +1513,9 @@ Procedure.i DambenHandler(strVerb.s, strNoun.s)
           str + " Have a really great journey!"
         EndIf
       Else
-        If SpendCoin(2)
+        If GG\iCoins > 1   ;do we have sufficient coins
+          SpendCoin(2)
+          
           str = Chr(34) + "Oh, no, we really shouldn't. It's quite against the law of our village to accept bribes." + Chr(34) + " The guard takes two gold coins from your hand. " + Chr(34) + "We'll dampen our great feelings of guilt with this gold!" + Chr(34)
           str + " The Damben waves his hands in an intricate pattern and soon the barricade slides open, allowing passage to the west."
           
@@ -1523,7 +1525,7 @@ Procedure.i DambenHandler(strVerb.s, strNoun.s)
           ChangeAvailDirection(GG\ptrRoom\iRoomX, GG\ptrRoom\iRoomY, #WEST, #DIROK)
           
         Else
-          str = Chr(34) + "I said one each. You don't have enough gold. Come back later if you're able to find some." + Chr(34)
+          str = Chr(34) + "One each. You don't have enough gold. Come back later if you're able to find some." + Chr(34)
         EndIf
       EndIf
       
@@ -1886,11 +1888,11 @@ Procedure BarmaidHandler(strVerb.s, strNoun.s)
         str = "The barmaid ignores you and remains fixated on the door. You look, but see nothing interesting out there."
       EndIf
       
-    Case "FLIR"  ;flirt
+    Case "FLIR", "KISS"  ;flirt
       If iState & #STATE7  ;tried to fight barmaid
-        str = "She shudders and gives you a look of fearful disdain. " + Chr(34) + "Leave me be, scum!" + Chr(34) + " Someday, your broken heart will heal."
+        str = "The barmaid shudders and gives you a look of fearful disdain. " + Chr(34) + "Leave me be, scum!" + Chr(34) + " Someday, your broken heart will heal."
       Else
-        str = "She heaves a depressed sigh and turns back to the door. In no way do you sense that she's interested."
+        str = "The fair lass heaves a depressed sigh and turns back to the door. In no way do you sense that she's interested."
       EndIf
       
     Case "FIGH", "ATTA", "KILL"  ;fight, attack
@@ -2126,9 +2128,9 @@ Procedure.i VillagersHandler(strVerb.s, strNoun.s)
         Case 3
           str + "Dragons like to catch their food, they won't eat you if you don't move."
         Case 4
-          str + "Beware a terrible group of robbers from the northwest!"
+          str + "Eldred keeps our torches burning."
         Case 5
-          str + "You can't swim the river if you're carrying too much weight."
+          str + "You can't swim the river if you're carrying too much."
       EndSelect
       
       str + Chr(34)
@@ -2238,6 +2240,21 @@ Procedure.i EldersHandler(strVerb.s, strNoun.s)
   EndSelect
   
   AddToOutput(str)
+  
+  ProcedureReturn fRC
+EndProcedure
+
+;noun and verb are both valid, #PARSELEN words
+Procedure.i OpeningHandler(strVerb.s, strNoun.s)
+  Protected fRC.i = #True
+  
+  Select strVerb
+    Case "GO", "ENTE", "CLIM"  ;enter, climb
+      AddToOutput("Only smoke from the fire can go through the hole. It's too small for you, silly.")
+      
+    Default
+      fRC = #False
+  EndSelect
   
   ProcedureReturn fRC
 EndProcedure
@@ -2698,6 +2715,8 @@ Procedure DropHandler(strNoun.s)
     If strNoun = "BACK"
       GG\fHaveBackpack = #False
       PackHandler(#DROPBACKPACK)
+    ElseIf strNoun = "SCEPTER"
+      ChangeStateAction("DROP", "SCEPTER") ;scepter no longer in hand
     EndIf
     
     AddToOutput("You drop the " + strFullNoun + ".")
@@ -2823,8 +2842,8 @@ Procedure GetHandler(strNoun.s)
 EndProcedure
 
 ; IDE Options = PureBasic 5.70 LTS (Windows - x64)
-; CursorPosition = 2418
-; FirstLine = 2415
-; Folding = ------------
-; Markers = 564,776
+; CursorPosition = 2257
+; FirstLine = 2220
+; Folding = -------------
+; Markers = 564,776,1517
 ; EnableXP

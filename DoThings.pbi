@@ -228,8 +228,11 @@ Procedure HandleValidCommand(strNoun.s, strVerb.s)
               fHandled = SarcophagusHandler(strVerb, strNoun)
             Case "BUTT"  ;button
               fHandled = ButtonHandler(strVerb, strNoun)
+            Case "OPEN"  ;opening
+              fHandled = OpeningHandler(strVerb, strNoun)
             Default
-              AddToOutput(HandleMessage("nounvererr"))
+              fHandled = #True
+              AddToOutput(HandleMessage("nounverberr"))
           EndSelect
         EndIf
         
@@ -534,8 +537,8 @@ Procedure.s TimerCommand(*sTIMER.EOTIMER = #NUL)
   
   ProcedureReturn strElapsed  
 EndProcedure
-; IDE Options = PureBasic 5.70 LTS beta 1 (Windows - x64)
-; CursorPosition = 243
-; FirstLine = 214
+; IDE Options = PureBasic 5.70 LTS (Windows - x64)
+; CursorPosition = 231
+; FirstLine = 205
 ; Folding = ---
 ; EnableXP

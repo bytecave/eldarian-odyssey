@@ -7,7 +7,7 @@
   <section name="data">
     <explorer view="..\PureBasic\" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2019-03-21 13:49" user="bytecave" host="MENWY"/>
+    <lastopen date="2019-03-21 14:16" user="bytecave" host="MENWY"/>
   </section>
   <section name="files">
     <file name="AdventureCore.pbi">
@@ -72,7 +72,7 @@
     </file>
     <file name="StringTable.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="2c2336fc82a8c5fadbc45f8fec74e8ff"/>
+      <fingerprint md5="8d61d018c2af534a1ae419ae652b885f"/>
     </file>
     <file name="TextHelpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>

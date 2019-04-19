@@ -7,7 +7,7 @@
   <section name="data">
     <explorer view="..\PureBasic\" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2019-03-21 14:16" user="bytecave" host="MENWY"/>
+    <lastopen date="2019-04-18 17:51" user="bytecave" host="MENWY"/>
   </section>
   <section name="files">
     <file name="AdventureCore.pbi">
@@ -20,7 +20,7 @@
     </file>
     <file name="DoThings.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="61fc474a6aedb757b929ce8713e1e447"/>
+      <fingerprint md5="47fd68c9e0cf615cc356d93f1269236d"/>
     </file>
     <file name="EldarianOdyssey.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
@@ -40,7 +40,7 @@
     </file>
     <file name="Handlers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="19356d6e75f99af9759e786789c980a7"/>
+      <fingerprint md5="1c5db69d511444fe0f22913f6d1f61fb"/>
     </file>
     <file name="Helpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
@@ -72,7 +72,7 @@
     </file>
     <file name="StringTable.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="8d61d018c2af534a1ae419ae652b885f"/>
+      <fingerprint md5="5653f0b7765ea80a9a0ba2c814320448"/>
     </file>
     <file name="TextHelpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
@@ -94,16 +94,16 @@
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>
       <debugger custom="1" type="ide"/>
       <versioninfo enable="1">
-        <field0 value="1,0,1,0"/>
-        <field1 value="1,0,1,0"/>
-        <field2 value="ByteCave, Inc."/>
+        <field0 value="1,0,1,1"/>
+        <field1 value="1,0,1,1"/>
+        <field2 value="ByteCave"/>
         <field3 value="Eldarian Odyssey"/>
         <field4 value="1.01"/>
         <field5 value="1.01"/>
-        <field6 value="Eldarian Odyssey Text Adventure"/>
+        <field6 value="Eldarian Odyssey Text Adventure Game"/>
         <field7 value="Debug x64"/>
-        <field9 value="(c) 2018-2019, ByteCave, Inc."/>
-        <field14 value="https://github.com/bytecaveinc/eldarian-odyssey/tree/master/Binaries"/>
+        <field9 value="(c) 2018-2019, ByteCave"/>
+        <field14 value="https://github.com/bytecave/eldarian-odyssey/tree/master/Binaries"/>
         <field18 value="IFID"/>
         <field21 value="ED442146-789B-4A8B-85C2-56ACBD7B958C"/>
       </versioninfo>
@@ -117,16 +117,16 @@
       <temporaryexe value="source"/>
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>
       <versioninfo enable="1">
-        <field0 value="1,0,1,0"/>
-        <field1 value="1,0,1,0"/>
-        <field2 value="ByteCave, Inc."/>
+        <field0 value="1,0,1,1"/>
+        <field1 value="1,0,1,1"/>
+        <field2 value="ByteCave"/>
         <field3 value="Eldarian Odyssey"/>
         <field4 value="1.01"/>
         <field5 value="1.01"/>
         <field6 value="Eldarian Odyssey Text Adventure Game"/>
         <field7 value="Release x64"/>
-        <field9 value="(c) 2018-2019 ByteCave, Inc."/>
-        <field14 value="https://github.com/bytecaveinc/eldarian-odyssey/tree/master/Binaries"/>
+        <field9 value="(c) 2018-2019 ByteCave"/>
+        <field14 value="https://github.com/bytecave/eldarian-odyssey/tree/master/Binaries"/>
         <field18 value="IFID"/>
         <field21 value="ED442146-789B-4A8B-85C2-56ACBD7B958C"/>
       </versioninfo>
@@ -139,16 +139,16 @@
       <options/>
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>
       <versioninfo enable="1">
-        <field0 value="1,0,1,0"/>
-        <field1 value="1,0,1,0"/>
-        <field2 value="ByteCave, Inc."/>
+        <field0 value="1,0,1,1"/>
+        <field1 value="1,0,1,1"/>
+        <field2 value="ByteCave"/>
         <field3 value="Eldarian Odyssey"/>
         <field4 value="1.01"/>
         <field5 value="1.01"/>
         <field6 value="Eldarian Odyssey Text Adventure Game"/>
         <field7 value="Debug x86"/>
-        <field9 value="(c) 2018-2019 ByteCave, Inc."/>
-        <field14 value="https://github.com/bytecaveinc/eldarian-odyssey/tree/master/Binaries"/>
+        <field9 value="(c) 2018-2019 ByteCave"/>
+        <field14 value="https://github.com/bytecave/eldarian-odyssey/tree/master/Binaries"/>
         <field18 value="IFID"/>
         <field21 value="ED442146-789B-4A8B-85C2-56ACBD7B958C"/>
       </versioninfo>
@@ -161,16 +161,16 @@
       <options/>
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>
       <versioninfo enable="1">
-        <field0 value="1,0,1,0"/>
-        <field1 value="1,0,1,0"/>
-        <field2 value="ByteCave, Inc."/>
+        <field0 value="1,0,1,1"/>
+        <field1 value="1,0,1,1"/>
+        <field2 value="ByteCave"/>
         <field3 value="Eldarian Odyssey"/>
         <field4 value="1.01"/>
         <field5 value="1.01"/>
         <field6 value="Eldarian Odyssey Text Adventure Game"/>
         <field7 value="Release x86"/>
-        <field9 value="(c) 2018-2019 ByteCave, Inc."/>
-        <field14 value="https://github.com/bytecaveinc/eldarian-odyssey/tree/master/Binaries"/>
+        <field9 value="(c) 2018-2019 ByteCave"/>
+        <field14 value="https://github.com/bytecave/eldarian-odyssey/tree/master/Binaries"/>
         <field18 value="IFID"/>
         <field21 value="ED442146-789B-4A8B-85C2-56ACBD7B958C"/>
       </versioninfo>

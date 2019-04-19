@@ -7,7 +7,7 @@ enu:
   Data.s "[output_font]", "SV Basic Manual"
   
   Data.s "[apptitle]", "Eldarian Odyssey"
-  Data.s "[copyright]", "(c) 2018-2019, ByteCave, Inc."
+  Data.s "[copyright]", "(c) 2018-2019, ByteCave"
   Data.s "[entryprompt]", "ENTER COMMAND:"
   Data.s "[ERROR]", "Error"
   Data.s "[CANTINITGRAPHICS]", "Can't initialize graphics screen"
@@ -145,5 +145,5 @@ EndDataSection
 
 
 ; IDE Options = PureBasic 5.70 LTS (Windows - x64)
-; CursorPosition = 9
+; CursorPosition = 48
 ; EnableXP

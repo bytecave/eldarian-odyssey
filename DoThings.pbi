@@ -230,6 +230,8 @@ Procedure HandleValidCommand(strNoun.s, strVerb.s)
               fHandled = ButtonHandler(strVerb, strNoun)
             Case "OPEN"  ;opening
               fHandled = OpeningHandler(strVerb, strNoun)
+            Case "BACK"  ;backpack
+              fHandled = BackpackHandler(strVerb, strNoun)
             Default
               fHandled = #True
               AddToOutput(HandleMessage("nounverberr"))
@@ -339,13 +341,19 @@ Procedure HandleNoValidNoun(strVerb.s, strNoun.s)
   Select Left(strVerb, #PARSELEN)
     Case "GET", "TAKE", "GRAB"
       If Not GG\ptrRoom\iState & #SDARK Or GG\fLightSource
-        AddToOutput(FormatString(HandleMessage("badget"), LCase(strNoun)))
+        If strNoun = "ALL"
+          AddToOutput("Please pick things up one at a time.")
+        Else
+          AddToOutput(FormatString(HandleMessage("badget"), LCase(strNoun)))
+        EndIf
       Else
         AddToOutput("It's too dark to find anything.")
       EndIf
     Case "DROP"
       If strNoun = "COINS"    ;workaround for drop multiple coins
         DropHandler("COIN")
+      ElseIf strNoun = "ALL"
+        AddToOutput("Please drop things one at a time, or try " + Chr(34) + "DROP BACKPACK" + Chr(34) + ".")
       Else
         AddToOutput(FormatString(HandleMessage("baddrop"), LCase(strNoun)))
       EndIf
@@ -538,7 +546,7 @@ Procedure.s TimerCommand(*sTIMER.EOTIMER = #NUL)
   ProcedureReturn strElapsed  
 EndProcedure
 ; IDE Options = PureBasic 5.70 LTS (Windows - x64)
-; CursorPosition = 231
-; FirstLine = 205
+; CursorPosition = 233
+; FirstLine = 193
 ; Folding = ---
 ; EnableXP

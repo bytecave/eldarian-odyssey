@@ -335,7 +335,7 @@
  [0]The branches are more sparse from this side than they appear to be from the other.
 }COIN,^GOLD,^MONEY,!GIVE,!USE,*1001-11000000,$INVENTORY
  [1]This is a[2]These are[0] solid gold coin[2]s[0] with the royal seal of Zarburg stamped on [1]it[2]them[0].
-}BACKPACK,^PACK,*1001-10100000,$INVENTORY
+}BACKPACK,^PACK,!SEARCH,*1001-10100000,$INVENTORY
  [0]It's a rugged backpack that contains the items you are carrying.[1] The backpack is currently empty.[2] The pack is starting to fill up.[3] The pack is over halfway full.[4] Your backpack is full. You'll have to drop something to carry more.
 <x>
 ;line must end with an <x> followed by at least one more character in the file (like this line)

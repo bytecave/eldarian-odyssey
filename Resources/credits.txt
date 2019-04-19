@@ -1,5 +1,5 @@
 GAME CREDITS:
-  Main Author: Rich Eizenhoefer, ByteCave, Inc.
+  Main Author: Rich Eizenhoefer, ByteCave
   Beta Testers: Kyle Swinney, Shon Eizenhoefer
   
 SPECIAL THANKS -------------------------------------

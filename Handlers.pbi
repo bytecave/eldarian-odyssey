@@ -521,6 +521,23 @@ Procedure.i PortcullisHandler(strVerb.s, strNoun.s)
 EndProcedure
 
 ;Valid noun/verb handlers. #PARSELEN verb passed in
+Procedure.i BackpackHandler(strVerb.s, strNoun.s)
+  Protected fRC.i = #False
+  
+  If strVerb = "SEAR"
+    fRC = #True
+    
+    If Not GG\fHaveBackpack
+      AddToOutput("You'll have to pick up the backpack before you can search it.")
+    Else
+      InventoryHandler(#INVENTORYDISPLAY)
+    EndIf
+  EndIf
+  
+  ProcedureReturn fRC
+EndProcedure
+    
+  ;Valid noun/verb handlers. #PARSELEN verb passed in
 Procedure.i CellDoorHandler(strVerb.s, strNoun.s)
   Protected fRC.i = #True
   
@@ -1622,7 +1639,7 @@ Procedure.i ClerkHandler(strVerb.s, strNoun.s)
       ElseIf iState & #STATE1
         str = "The clerk gives you an icy stare. " + Chr(34) + "Leave." + Chr(34)
       Else
-        str = Chr(34) + "Don't you have better things to do? Please leave." + Chr(34)
+        str = Chr(34) + "Don't you have better things to do? Go talk to the king. Please leave." + Chr(34)
       EndIf
       
     Default
@@ -2754,14 +2771,14 @@ Procedure GetHandler(strNoun.s)
   EndIf
   
   If strNoun = ""
-    strNoun = "ALL"
+    strNoun = "EMPTY"
   EndIf
   
   strFullNoun = LCase(strNoun)
   strNoun = Left(strNoun, #PARSELEN)
   
   Select strNoun
-    Case "ALL"
+    Case "EMPTY"
       str = "Please tell me exactly what to get."
     Default
       *ptrNoun = FindMapElement(Nouns(), strNoun)
@@ -2842,8 +2859,8 @@ Procedure GetHandler(strNoun.s)
 EndProcedure
 
 ; IDE Options = PureBasic 5.70 LTS (Windows - x64)
-; CursorPosition = 2257
-; FirstLine = 2220
+; CursorPosition = 534
+; FirstLine = 520
 ; Folding = -------------
-; Markers = 564,776,1517
+; Markers = 581,793,1534
 ; EnableXP

@@ -1,0 +1,87 @@
+READING THIS WILL GIVE HINTS TO THE GAME. DON'T READ IF YOU ARE INTENDING TO PLAY!!!
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+---
+
+
+
+
+
+
+----
+
+
+
+
+
+
+Eldarian Odyssey: Petition King does not work.
+Talk Guard: Kneel before the king, nave!
+
+WOODs. After Dig Bottle, Potion appears, and bottle should disappear completely.
+
+Can't look LOG/LOGS in Elf village near log buildings
+
+LOOK LOG at townhall does nothing
+
+townhall can't look ceiling, noun doesn't exist.
+
+townhall can't look/get circlet. noun doesn't exist.
+
+I am Belzar high chieftain. Zyland?
+
+Talk Damben after he already has the gold. Still says "Gold is good," should say something else.

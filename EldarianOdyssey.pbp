@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.70 LTS (Windows - x64)">
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.72 (Windows - x64)">
   <section name="config">
     <options closefiles="1" openmode="1" name="EldarianOdyssey"/>
   </section>
   <section name="data">
     <explorer view="..\PureBasic\" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2019-04-18 17:51" user="bytecave" host="MENWY"/>
+    <lastopen date="2020-11-21 13:37" user="bytecave" host="VILM"/>
   </section>
   <section name="files">
     <file name="AdventureCore.pbi">
@@ -24,7 +24,7 @@
     </file>
     <file name="EldarianOdyssey.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="1b8e8877cadb78eeaee0c7ef297348e7"/>
+      <fingerprint md5="854b5376b007167c7d3696a81b777485"/>
     </file>
     <file name="GetCommand.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
@@ -87,7 +87,7 @@
     <target name="DebugX64" enabled="1" default="1">
       <inputfile value="EldarianOdyssey.pb"/>
       <outputfile value="Binaries\EldarianOdyssey-x64-Debug.exe"/>
-      <compiler version="PureBasic 5.70 LTS (Windows - x64)"/>
+      <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
       <executable value="Binaries\EldarianOdyssey-x64-Debug.exe"/>
       <options debug="1"/>
       <temporaryexe value="source"/>
@@ -111,7 +111,7 @@
     <target name="ReleaseX64" enabled="1" default="0">
       <inputfile value="EldarianOdyssey.pb"/>
       <outputfile value="Binaries\EldarianOdyssey-x64.exe"/>
-      <compiler version="PureBasic 5.70 LTS (Windows - x64)"/>
+      <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
       <executable value="Binaries\EldarianOdyssey-x64.exe"/>
       <options/>
       <temporaryexe value="source"/>
@@ -134,7 +134,7 @@
     <target name="DebugX86" enabled="1" default="0">
       <inputfile value="EldarianOdyssey.pb"/>
       <outputfile value="Binaries\EldarianOdyssey-x86-Debug.exe"/>
-      <compiler version="PureBasic 5.70 LTS (Windows - x86)"/>
+      <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
       <executable value="Binaries\EldarianOdyssey-x86-Debug.exe"/>
       <options/>
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>
@@ -156,7 +156,7 @@
     <target name="ReleaseX86" enabled="1" default="0">
       <inputfile value="EldarianOdyssey.pb"/>
       <outputfile value="Binaries\EldarianOdyssey-x86.exe"/>
-      <compiler version="PureBasic 5.70 LTS (Windows - x86)"/>
+      <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
       <executable value="Binaries\EldarianOdyssey-x86.exe"/>
       <options/>
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>

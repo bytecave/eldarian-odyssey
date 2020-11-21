@@ -142,6 +142,8 @@ While #True
   StopDrawing()
   
   FlipBuffers()
+  
+  Delay(1)
 Wend
 ; IDE Options = PureBasic 5.70 LTS beta 1 (Windows - x64)
 ; CursorPosition = 14

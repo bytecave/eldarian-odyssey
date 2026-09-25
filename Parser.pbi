@@ -122,7 +122,7 @@ Procedure.i FindNoun(Array rgWords.s(1), *strNoun.STRING)
       *strNoun\s = *ptrNoun\strNoun
       
       ;if user typed an unattached synonym, resolve it to the associated noun
-      If *ptrNoun\strBaseNoun = #START_UNATTACHEDSYNONYM
+      If *ptrNoun\strBaseNoun = #START_UNATTACHEDSYNONYM Or *ptrNoun\strNoun = "LOG"
         ResolveUnattached(*strNoun)
         *ptrNoun = FindMapElement(Nouns(), Left(*strNoun\s, #PARSELEN))
       ElseIf *ptrNoun\strBaseNoun <> ""    ;synonyms refer to base nouns. resolve to base noun

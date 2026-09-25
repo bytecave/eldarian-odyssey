@@ -313,7 +313,7 @@ Procedure.i StumpHandler(strVerb.s, strNoun.s)
         str = "There's nothing tied to the stump."
       EndIf
       
-    Case "REMOVE", "DIG"
+    Case "REMO", "DIG"
       str = "The stump isn't going anywhere, no matter how hard you try."
         
     Case "KICK"
@@ -456,6 +456,10 @@ EndProcedure
 ;Valid noun/verb handlers. #PARSELEN verb passed in
 Procedure.i KeyHandler(strVerb.s, strNoun.s)
   Protected fRC.i = #True
+  If InventoryHandler(#INVENTORYCHECK, "KEY") <> #HASITEM
+    AddToOutput("You need to be carrying the iron key.")
+    ProcedureReturn #True
+  EndIf
   
   Select strVerb
     Case "USE", "TURN"
@@ -470,7 +474,7 @@ Procedure.i KeyHandler(strVerb.s, strNoun.s)
           EndIf
           
         Case "HALLWAY2"
-          If Not ItemState(#STATEGET, "CELLDOOR") & #STATE7  ;cell door is still locked
+          If ItemState(#STATEGET, "CELLDOOR") & #STATE1  ;cell door is still locked
             AddToOutput("You turn the iron key in the rusty lock of the prison cell and it swings open, latching to the wall. You won't be able to close the door now.")
             ChangeStateAction("USECELL", "KEY")
             ChangeAvailDirection(GG\ptrRoom\iRoomX, GG\ptrRoom\iRoomY, #WEST, #DIROK)
@@ -954,6 +958,7 @@ Procedure.i PrisonerHandler(strVerb.s, strNoun.s)
         
         RoomState(#STATESET, "PRISONCELL2", #NUL, #STATE1)
         ChangeItemRoom("PRISONER", "RADIANTPOOL", "PRISONCELL2")
+        ChangeStateAction("FREE", "PRISONER")
       EndIf
       
     Case "FEED"
@@ -1268,6 +1273,8 @@ Procedure.i BottleHandler(strVerb.s, strNoun.s)
     Case "DIG", "SEAR"  ;search
       AddToOutput("You dig around the bottle with your hands and uncover a dark green potion.")
       ChangeStateAction("DIG", "BOTTLE")
+      ChangeItemRoom("BOTTLE", #ITEMGONE)
+      ItemState(#STATESET, "BIRCH", #STATE1, #STATE0)
       
     Default
       fRC = #False
@@ -1287,6 +1294,7 @@ Procedure.i PotionHandler(strVerb.s, strNoun.s)
       ElseIf ItemState(#STATEGET, "LICH") & #STATE5
         AddToOutput("You quaff the potion and you are fully recovered! Now, defeat the evil lich.")
         ItemState(#STATESET, "POTION", #STATE7, #NUL)
+        ChangeItemRoom("POTION", #ITEMGONE)
       Else
         AddToOutput("It's not time yet! Soon. You must defeat the lich!")
       EndIf
@@ -1389,7 +1397,7 @@ Procedure.i KingHandler(strVerb.s, strNoun.s)
         str + " He will bless your light."
       EndIf
       
-    Case "TALK", "SPEA"  ;speak
+    Case "TALK", "SPEA", "PETI"  ;speak
       If ItemState(#STATEGET, "LICH") & #STATE7 And RoomState(#STATEGET, "PRINCE") & #PRINCE_RESCUED
         If iState & #KING_REWARD_PAID
           AddToOutput("Eldred smiles. " + Chr(34) + "My son is home, thanks to you. Enjoy your reward, brave adventurer!" + Chr(34))
@@ -1686,7 +1694,11 @@ Procedure NoteHandler(strVerb.s, strNoun.s)
       ExamineHandler("NOTE")
       
     Case "GIVE"
-      fRC = ClerkHandler("TALK", "CLERK")
+      If GG\ptrRoom\strRoom = "ZARBURGTREASURY"
+        fRC = ClerkHandler("TALK", "CLERK")
+      Else
+        AddToOutput("The note is for the Royal Clerk in the treasury.")
+      EndIf
       
     Default
       fRC = #False
@@ -2114,7 +2126,7 @@ Procedure.i BuildingHandler(strVerb.s, strNoun.s)
   Protected sTIMER.EOTIMER, fRC.i = #True
   
   Select strVerb
-    Case "GO", "ENTER"
+    Case "GO", "ENTE"
       AddToOutput("The buildings and homes are all shielded somehow, and you're not even able to touch the doors.")
       
     Case "BURN"
@@ -2217,7 +2229,7 @@ Procedure.i ChieftainHandler(strVerb.s, strNoun.s)
   iState = ItemState(#STATEGET, "CHIEFTAIN")
   
   Select strVerb
-    Case "TALK", "SPEAK"  ;speak
+    Case "TALK", "SPEA"  ;speak
       If Not iState & #STATE2  ;haven't talked to the chieftain yet
         str = "You explain to the chieftain that you are in search of the young prince of Zarburg. The chieftain responds, " + Chr(34) + "I am Belzar, high chieftain of the drow. "
         str + "I am sorrowed to hear that. The kingdom of Zarburg is a great ally to the drow." + Chr(34)
@@ -2255,7 +2267,7 @@ Procedure.i EldersHandler(strVerb.s, strNoun.s)
   iState = ItemState(#STATEGET, "ELDERS")
   
   Select strVerb
-    Case "TALK", "SPEAK"  ;speak
+    Case "TALK", "SPEA"  ;speak
       If Not iState & #STATE2  ;haven't spoken to the elders yet
         str = "The elders studiously ignore you and continue their conversations with each other and the chieftain."
         ItemState(#STATESET, "ELDERS", #STATE2)
@@ -2330,7 +2342,7 @@ Procedure.i MerchantHandler(strVerb.s, strNoun.s)
   iState = ItemState(#STATEGET, "MERCHANT")
   
   Select strVerb
-    Case "TALK", "SPEAK"
+    Case "TALK", "SPEA"
       If Not iState & #STATE2  ;angry at you
         If iState & #STATE1    ;has mealbars
           str = Chr(34) + "Buy a mealbar, friend. I've but one left, a single goldpiece each." + Chr(34)
@@ -2481,7 +2493,7 @@ Procedure.i WatchmanHandler(strVerb.s, strNoun.s)
     Case "FEED"
       AddToOutput("Okay, maybe not hungry in that sense of the word. More like " + Chr(34) + "greedy." + Chr(34))
         
-    Case "TALK", "SPEAK"
+    Case "TALK", "SPEA"
       If ItemState(#STATEGET, "MAINGATE") & #STATE2  ; gate open
         If Not iState & #STATE7  ;if not already talked to him
           AddToOutput("The watchman looks at you with a puzzled look. " + Chr(34) + "Um... thanks? Now go somewhere else." + Chr(34))
@@ -2597,7 +2609,7 @@ Procedure.i SignHandler(strVerb.s, strNoun.s)
       ChangeStateAction("BREAK", strNoun)
     Case "READ"
       ExamineHandler("SIGN")
-    Case "STEAL"
+    Case "STEA"
       AddToOutput("The signpost is too heavy to move very far. You quickly give up on the notion.")
     Default
       fRC = #False

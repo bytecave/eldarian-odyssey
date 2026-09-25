@@ -391,6 +391,12 @@ EndProcedure
 Procedure ResolveUnattached(*strNoun.STRING)
   With *strNoun
     Select \s
+      Case "LOG", "LOGS"
+        If GG\ptrRoom\strRoom = "ELVENVILLAGE"
+          \s = "BUILDINGS"
+        Else
+          \s = "LOG"
+        EndIf
       Case "TREE"
         Select GG\ptrRoom\strRoom
           Case "ZARBURGSOUTHGATE", "OAKROOM"
@@ -420,7 +426,7 @@ Procedure ResolveUnattached(*strNoun.STRING)
         Select GG\ptrRoom\strRoom
           Case "FOUNTAIN"
             \s = "FOUNTAIN"
-          Case "POND"
+          Case "FISHPOND"
             \s = "POND"
           Case "RADIANTPOOL"
             \s = "POOL"

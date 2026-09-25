@@ -71,7 +71,7 @@
  [0]It's an old wood and stone bridge. It is very sturdy and, though heavily worn, has stood the test of time very well.
 }TORCH,!LIGHT,!EXTINGUISH,!BURN,!SNUFF,!UNLIGHT,*1001-10001000,$INVENTORY
  [0]The torch is made from a tree branch with an oil-covered cloth wrapped around one end. [1]The torch is burning brightly[2], with a strange white glow within the flames[1].[4]The torch is currently not burning.[5]The torch is used up.
-}KING,^ELDRED,!TALK,!SPEAK,!HONOR,!RESPECT,!KNEEL,!BOW,!GENUFLECT,!FIGH,!KILL,!ATTACK,*0100-10000000,$ZARBURGTHRONEROOM
+}KING,^ELDRED,!PETITION,!TALK,!SPEAK,!HONOR,!RESPECT,!KNEEL,!BOW,!GENUFLECT,!FIGH,!KILL,!ATTACK,*0100-10000000,$ZARBURGTHRONEROOM
  [0]Eldred is a benevolent ruler, wise and just. He is exceptionally gray for a man in his mid-40's. His face is set in worry, and he often seems distracted, even when speaking to others.[1] He eyes you with great displeasure, standing safely behind two mighty Defenders.
  @FIGHT:-0+1
  @FIGHT:-0+1+7:^THRONE
@@ -242,8 +242,8 @@
 }PRISONER,!TALK,!SPEAK,!ATTACK,!FIGHT,!KILL,!RELEASE,!RESCUE,!FREE,!FEED,*0100-11000000,$PRISONCELL2
  [0]The prisoner [1]is starving,[2]has[0] withered away to almost nothing. Fresh wounds cover his upper body where it's not loosely covered by a tattered rag.
  @FEED:-2:$PRISONCELL2
- @FEED:+1-2+3+7:$RADIANTPOOL
- @FEED:-1+2:^GRANITEGATE
+ @FREE:+1-2+3+7:$RADIANTPOOL
+ @FREE:-1+2:^GRANITEGATE
  @FEED:-1+2
 }WOUNDS,*0100-10000000,$PRISONCELL2
  [0]There are several deep, painful scars and a handful of more recent wounds, but the blood has dried.
@@ -325,8 +325,12 @@
  @FIGHT:+1:^CHIEFTAIN
 }BONFIRE,^FIRE,!LIGHT,!UNLIGHT,!EXTINGUISH,!SNUFF,*0100-10000000,$ELVENTOWNHALL
  [0]The tall, bright fire burns in the middle of the hall, vented through a small hole in the roof. Surprisingly, the fire gives off almost no heat.
-}LOG,!TAKE,$ELVENTOWNHALL
+}LOG,&LOGS,!TAKE,*0100-10000000,$ELVENTOWNHALL
  [0]The logs are expertly bound together, supporting the great town hall with ease.
+}CEILING,^ROOF,*0100-10000000,$ELVENTOWNHALL
+ [0]A small opening in the ceiling lets the bonfire smoke escape.
+}CIRCLET,*0100-10000000,$ELVENTOWNHALL
+ [0]The small golden circlet on Belzar's head is the sign of his office.
 }OPENING,&HOLE,!CLIMB,*0100-10000000,$ELVENTOWNHALL
  [0]A nearly invisible hint of smoke spirals upward out of the hole in the roof.
 }BRACELET,!REMOVE,*0100-10000000,$ELVENTOWNHALL

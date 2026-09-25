@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.72 (Windows - x64)">
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.41 (Windows - x64)">
   <section name="config">
     <options closefiles="1" openmode="1" name="EldarianOdyssey"/>
   </section>
@@ -87,7 +87,7 @@
     <target name="DebugX64" enabled="1" default="1">
       <inputfile value="EldarianOdyssey.pb"/>
       <outputfile value="Binaries\EldarianOdyssey-x64-Debug.exe"/>
-      <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
+      <compiler version="PureBasic 6.41 (Windows - x64)"/>
       <executable value="Binaries\EldarianOdyssey-x64-Debug.exe"/>
       <options debug="1"/>
       <temporaryexe value="source"/>
@@ -111,7 +111,7 @@
     <target name="ReleaseX64" enabled="1" default="0">
       <inputfile value="EldarianOdyssey.pb"/>
       <outputfile value="Binaries\EldarianOdyssey-x64.exe"/>
-      <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
+      <compiler version="PureBasic 6.41 (Windows - x64)"/>
       <executable value="Binaries\EldarianOdyssey-x64.exe"/>
       <options/>
       <temporaryexe value="source"/>
@@ -136,7 +136,7 @@
       <outputfile value="Binaries\EldarianOdyssey-x86-Debug.exe"/>
       <compiler version="PureBasic 5.73 beta 5 (Windows - x86)"/>
       <executable value="Binaries\EldarianOdyssey-x86-Debug.exe"/>
-      <options/>
+      <options debug="1"/>
       <icon enable="1">Resources\icons\EO_Icon.ico</icon>
       <versioninfo enable="1">
         <field0 value="1,0,1,1"/>

@@ -147,7 +147,7 @@ Procedure.i LichHandler(strVerb.s, strNoun.s)
   iState = sState\iLichState
   
   Select strVerb
-    Case "TALK", "SPEAK"
+    Case "TALK", "SPEA"
       If sState\iNumItems <> 3
         str = LichKillsYou()
       ElseIf Not iState & #STATE6   ;first time talking to Lich

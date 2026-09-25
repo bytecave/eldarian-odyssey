@@ -77,8 +77,10 @@ Procedure AddToOutput(sText.s, fDrawText.i = #False)
             fGotLine = #True
           Case #CR$
             sText = ReplaceString(sText, #CR$, " ", #PB_String_CaseSensitive, iLineLen, 1)
-            sText = ReplaceString(sText, #LF$, " ", #PB_String_CaseSensitive, iLineLen + 1, 1)
-            iLineLen + 1   ;bump past linefeed as we just processed two characters
+            If Mid(sText, iLineLen + 1, 1) = #LF$
+              sText = ReplaceString(sText, #LF$, " ", #PB_String_CaseSensitive, iLineLen + 1, 1)
+              iLineLen + 1
+            EndIf
             fGotLine = #True
           Case #LF$
             sText = ReplaceString(sText, #LF$, " ", #PB_String_CaseSensitive, iLineLen, 1)
@@ -100,7 +102,7 @@ Procedure AddToOutput(sText.s, fDrawText.i = #False)
           ;all multiple occurrences of a #NOMULTICHAR must appear on same line. This prevents an ellipsis, for
           ;example, from being broken between two lines.
           If FindString(#NOMULTICHARS, Mid(sText, iLineLen + 1, 1))
-            While FindString(#NOMULTICHARS, Mid(sText, iLineLen, 1))
+            While iLineLen > 1 And FindString(#NOMULTICHARS, Mid(sText, iLineLen, 1))
               iLineLen - 1
             Wend
           EndIf
@@ -138,7 +140,7 @@ Procedure AddToOutput(sText.s, fDrawText.i = #False)
     
     ;last pass through, iLineLen + 1 is always > stringlen, but it's okay 'cause Purebasic just returns ""
     sText = Mid(sText, iLineLen + 1)
-  Until iLineLen = iStrLen
+  Until sText = ""
 EndProcedure
 
 Procedure ClearOutputBuffer()

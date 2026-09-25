@@ -32,7 +32,9 @@ kernel32 = OpenLibrary(#PB_Any, "kernel32.dll")
                 
 If IsLibrary(kernel32)
   SetThreadExecutionState = GetFunction(kernel32, "SetThreadExecutionState")
-  SetThreadExecutionState(#ES_SYSTEM_REQUIRED | #ES_DISPLAY_REQUIRED | #ES_AWAYMODE_REQUIRED | #ES_CONTINUOUS)
+  If SetThreadExecutionState
+    SetThreadExecutionState(#ES_SYSTEM_REQUIRED | #ES_DISPLAY_REQUIRED | #ES_AWAYMODE_REQUIRED | #ES_CONTINUOUS)
+  EndIf
   CloseLibrary(kernel32)
 EndIf
 CompilerEndIf
@@ -55,6 +57,8 @@ While #True
   
   ;draw onto buffer image
   ClearScreen(0)
+  ;Sample once per frame so GetCommand and dialog shortcuts see the same edges.
+  ExamineKeyboard()
   StartDrawing(ImageOutput(#IMAGEBUFID))
   
   ;Draw background
@@ -89,8 +93,6 @@ While #True
     Grayscale::Grayscale(#IMAGEBUFID)
   EndIf
   
-  ExamineKeyboard()
-  
   If GU\iDialog <> #DIALOG_NONE
     DialogBox(#DIALOG_REFRESH)
     
@@ -113,7 +115,7 @@ While #True
     EndIf
   EndIf
   
-  If GU\iDialog <> #DIALOG_QUESTION
+  If GU\iDialog <> #DIALOG_QUESTION And Not GU\fPauseInput
     If GU\iDialog <> #DIALOG_HELP
       ;if request for Dialog box
       If KeyboardReleased(#PB_Key_F1)

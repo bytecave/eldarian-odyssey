@@ -92,14 +92,16 @@ EndProcedure
 ;noun can be full or #PARSELEN
 Procedure.i ItemState(nMode.i, strNoun.s, iSetStateMask.i = #NUL, iUnsetStateMask.i = #NUL)
   Protected *ptrNoun.NOUN
+  Protected state.i
   
   *ptrNoun = FindMapElement(Nouns(), Left(strNoun, #PARSELEN))
   
   If nMode = #STATESET
-    *ptrNoun\iState & ~(iUnsetStateMask)
-    *ptrNoun\iState | iSetStateMask
-  
-    GU\iDirty + 1
+    state = (*ptrNoun\iState & ~iUnsetStateMask) | iSetStateMask
+    If state <> *ptrNoun\iState
+      *ptrNoun\iState = state
+      GU\iDirty + 1
+    EndIf
   Else
     ProcedureReturn *ptrNoun\iState
   EndIf
@@ -108,14 +110,16 @@ EndProcedure
 ;room is full name
 Procedure.i RoomState(nMode.i, strRoom.s, iSetStateMask.i = #NUL, iUnsetStateMask.i = #NUL)
   Protected *ptrRoom.ROOM
+  Protected state.i
   
   *ptrRoom = FindMapElement(Rooms(), strRoom)
   
   If nMode = #STATESET
-    *ptrRoom\iState & ~(iUnsetStateMask)
-    *ptrRoom\iState | iSetStateMask
-  
-    GU\iDirty + 1
+    state = (*ptrRoom\iState & ~iUnsetStateMask) | iSetStateMask
+    If state <> *ptrRoom\iState
+      *ptrRoom\iState = state
+      GU\iDirty + 1
+    EndIf
   Else
     ProcedureReturn *ptrRoom\iState
   EndIf

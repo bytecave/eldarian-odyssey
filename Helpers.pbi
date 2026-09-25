@@ -90,7 +90,7 @@ CompilerEndIf
   
   hFont = LoadFont(#PB_Any, strFontFace, iPointSize, iFlags)
   If Not IsFont(hFont)
-    hFont = GetGadgetFont(#PB_Default)
+    hFont = LoadFont(#PB_Any, "Arial", iPointSize, iFlags)
   EndIf
   
   ProcedureReturn hFont
@@ -354,6 +354,8 @@ Procedure.i ValidateSaveGame()
       If Not FindMapElement(Rooms(), ReadPreferenceString("current", "")) Or Not FindMapElement(Rooms(), ReadPreferenceString("prev", ""))
         ProcedureReturn #False
       EndIf
+      *room = FindMapElement(Rooms(), ReadPreferenceString("current", ""))
+      If *room\iRoomX < 0 : ProcedureReturn #False : EndIf
       If ReadPreferenceInteger("coins", -1) < 0 Or ReadPreferenceInteger("torchburn", -1) < 0 Or ReadPreferenceInteger("numcommands", -1) < 0
         ProcedureReturn #False
       EndIf
@@ -417,7 +419,6 @@ Procedure LoadGame(strFileName.s, fPermitted.i = #False)
   Protected str.s, strGroup.s, strKey.s, strValue.s
   Protected *ptrRoom.ROOM, *ptrNoun.NOUN
   Protected fNewGroup.i
-  Dim rgTimer.s(0)
   
   If strFileName = "" Or strFileName = "GAME"   ;if no file name or used typed "SAVE GAME"
     If GG\strLastSaveFile <> ""

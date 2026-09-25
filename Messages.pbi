@@ -7,7 +7,10 @@ Procedure.s RandomMessageString(*ptrStart, *ptrEnd, strFind.s, bNumChoices.i)
     fTryAgain = #False
     
     strID = "[" + strFind + RSet(Str(Random(bNumChoices, 1)), 2, "0") + "]"
-    *pString = QuickStringSearch(*ptrStart, *ptrEnd - *ptrStart + 1, @strID, StringByteLength(strID))
+    *pString = QuickStringSearch(*ptrStart, *ptrEnd - *ptrStart, @strID, StringByteLength(strID))
+    If Not *pString
+      ProcedureReturn "*ERR:STRINGNOTFOUND"
+    EndIf
     
     strMsg = PeekS(*pString + StringByteLength(strID + " "))
     

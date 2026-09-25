@@ -11,6 +11,7 @@ enu:
   Data.s "[entryprompt]", "ENTER COMMAND:"
   Data.s "[ERROR]", "Error"
   Data.s "[CANTINITGRAPHICS]", "Can't initialize graphics screen"
+  Data.s "[CANTINITSCREEN]", "Can't create the game window or drawing screen"
   Data.s "[CANTINITFONT]", "Can't initialize font: "
   Data.s "[FILE]", ", File: "
   Data.s "[closedialog]", "[ESC to close]"

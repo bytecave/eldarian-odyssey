@@ -92,11 +92,6 @@ Procedure DrawAboutText(strText.s)
   EndIf
 EndProcedure
 
-Procedure FixUpText(str.s)
-  ReplaceString(str, #SPECIALSPACE, " ")
-EndProcedure
-
-
 Procedure DialogBox(nDialogMode.i, strQuestion.s = "", strVerb.s = "")
   Static imgLogo.i, iXLogo.i
   Static strClose.s, iXClose.i, strTitle.s

@@ -75,7 +75,6 @@ Procedure.i GetCommand()
   EndIf
   
   If GU\iDialog = #DIALOG_NONE
-    ExamineKeyboard()
     strKey = Left(KeyboardInkey(), 1)  ;PB bug, sometimes KeyboardInkey() returns 2 characters
     
     rc = #NOCOMMAND
@@ -87,7 +86,7 @@ Procedure.i GetCommand()
         strKey = Chr(#ENTERKEY)
       ElseIf msCurrent - msDelay > #PUSHKEYDELAY   ;delay between backspace and buffer scroll (up/down arrow) keys
         If KeyboardPushed(#PB_Key_Back) And iCol
-          iDistance + 1
+          iDistance = 0
           iCol - 1
           strLine = Left(strLine, iCol)
                   
@@ -122,6 +121,7 @@ Procedure.i GetCommand()
       Case #ESCAPEKEY
         strLine = ""
         iCol = 0
+        iDistance = 0
         
       Case #ENTERKEY      
         ;save line in history, a circular buffer
@@ -157,6 +157,7 @@ Procedure.i GetCommand()
           ;we want all commands in upper case
           strLine + UCase(strKey)
           iCol + 1
+          iDistance = 0
         EndIf
     EndSelect
   Else

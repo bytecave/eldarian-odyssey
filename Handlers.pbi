@@ -166,7 +166,7 @@ Procedure TorchHandler(strVerb.s)
           EndIf
           
           ;change torch description
-          CheckTorch(0)
+          CheckTorch(GU\iDirty)
           
           GU\iDirty + 1
         Else

@@ -20,6 +20,10 @@ XIncludeFile "Dialogs.pbi"
 XIncludeFile "Parser.pbi"
 
 Global failures.i, checks.i
+Global wrapped.s
+Procedure CaptureLine(line.s)
+  wrapped + line
+EndProcedure
 Procedure Assert(ok.i, message.s)
   checks + 1
   If Not ok
@@ -270,6 +274,38 @@ Assert(Bool(Not RoomState(#STATEGET, "RADIANTPOOL") & #STATE7), "feeding alone d
 Command("TALK PRISONER")
 Command("TALK PRISONER")
 Assert(Bool(RoomState(#STATEGET, "RADIANTPOOL") & #STATE7), "freed prisoner can open granite gate")
+Define search.s = "ABCD", pattern.s = "CD"
+Assert(Bool(QuickStringSearch(@search, StringByteLength(search), @pattern, StringByteLength(pattern)) = @search + StringByteLength("AB")), "bounded search finds last valid offset")
+pattern = "ZZ"
+Assert(Bool(QuickStringSearch(@search, StringByteLength(search), @pattern, StringByteLength(pattern)) = 0), "bounded search rejects absent pattern")
+Assert(Bool(QuickStringSearch(@search, 1, @pattern, StringByteLength(pattern)) = 0), "bounded search rejects oversized pattern")
+DrawTextProc = @CaptureLine()
+wrapped = ""
+AddToOutput("A" + #CR$, #True)
+Assert(Bool(wrapped = "A "), "trailing CR terminates wrapping")
+wrapped = ""
+AddToOutput("A" + #CR$ + "B" + #LF$ + "C" + #CRLF$ + "D", #True)
+Assert(Bool(wrapped = "A B C  D"), "CR LF and CRLF preserve text")
+GU\iXWidth = 1
+wrapped = ""
+AddToOutput("....LongWord", #True)
+Assert(Bool(wrapped = "....LongWord"), "narrow wrapping always advances")
+GU\iXWidth = 1000
+DrawTextProc = @DrawAboutText()
+Fresh()
+Command("LIGHT TORCH")
+Assert(Bool(GG\iTorchBurnTime = #TORCHTURNS - 1), "lighting torch counts one turn")
+Define burnTime.i = GG\iTorchBurnTime
+Command("EXAMINE TORCH")
+Assert(Bool(GG\iTorchBurnTime = burnTime), "read-only examine does not consume torch")
+SetCurrentDirectory(testDirectory)
+CreateDirectory(testDirectory)
+SetCurrentDirectory(testDirectory)
+Command("SAVE COMMANDSAVE")
+Assert(Bool(GU\iDirty = 0), "SAVE command stays clean after torch synchronization")
+DeleteFile(testDirectory + "COMMANDSAVE.EOS")
+SetCurrentDirectory(originalDirectory)
+DeleteDirectory(testDirectory, "")
 StopDrawing()
 PrintN(Str(checks) + " checks; " + Str(failures) + " failures")
 End Bool(failures > 0)

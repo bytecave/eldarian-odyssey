@@ -16,6 +16,9 @@ EndStructure
 ;
 Procedure.i QuickStringSearch(*pSearch.MemBytes, iSearchLen.i, *pPattern.MemBytes, iPatternLen.i)
   Protected i.i, iSearchEnd.i
+  If Not *pSearch Or Not *pPattern Or iPatternLen <= 0 Or iSearchLen < iPatternLen
+    ProcedureReturn #NUL
+  EndIf
   
   ; Build BadChr Array
   Protected Dim rgaBadChar.i(255)
@@ -31,11 +34,14 @@ Procedure.i QuickStringSearch(*pSearch.MemBytes, iSearchLen.i, *pPattern.MemByte
   Next     
   
   i = 0
-  iSearchEnd = iSearchLen - (iPatternLen - 1)
+  iSearchEnd = iSearchLen - iPatternLen
   
   While i <= iSearchEnd
     If CompareMemory(*pSearch + i, *pPattern, iPatternLen) = 1
       ProcedureReturn *pSearch + i
+    EndIf
+    If i = iSearchEnd
+      Break
     EndIf
     
     ;Didn't find the string so shift as per the table.
@@ -51,7 +57,7 @@ Procedure.s P_InitalizeLoc(strLanguage.s)
   
   ;default to english
   *sh_pStringTable = ?enu
-  sh_iStringTableLen = ?end_enu - ?enu + 1
+  sh_iStringTableLen = ?end_enu - ?enu
   
   ;point to requested string table
   Select strLanguage

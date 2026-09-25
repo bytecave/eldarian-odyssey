@@ -62,18 +62,17 @@ EndProcedure
 
 Procedure DoLichTimer(strEvent.s)
   Select strEvent
-    Case "LICHINSTANT"
+    Case "LICHINSTANT", "LICHDEATH"
       AddToOutput("^*** You awaken, shivering, in the burrow near entrace to the dungeon. Your icy heart warms and beats to the rhythm of the green pulsing on the band about you neck. Your band returns to a light blue and you sit up, ready for more.^^")
       
       GU\fPauseInput = #False
       GU\fGray = #False
       GG\fLightSource = #False
       CheckTorch(GU\iDirty)
+      ItemState(#STATESET, "DAGGER", #NUL, #STATE3)
       
       ChangeStateAction("PLAYERDIED", "BAND")
       ChangeCurrentRoom(0, 0, "BURROW")
-    Case "LICHDEATH"
-      ;sdfs
   EndSelect
 EndProcedure
 
@@ -89,6 +88,10 @@ Procedure DoCryptOnEntry()
       RoomState(#STATESET, "CRYPT", sState\iCryptState | #STATE1, #NUL)  ;set just the room entry states we want
       
       ItemState(#STATESET, "DAGGER", #STATE3, #NUL)  ;state 3 = dagger white hum
+      If GG\fLightPermanent
+        ;The blessed light fills the room even if the carried torch goes out.
+        RoomState(#STATESET, "CRYPT", #NUL, #SDARK)
+      EndIf
     EndIf
   EndIf
 EndProcedure
@@ -96,11 +99,12 @@ EndProcedure
 Procedure DoCryptPostEntry()
   Protected sTimer.EOTIMER
   
-  If Not GG\fLightSource Or Not ItemState(#STATEGET, "BRACELET") & #STATE7
+  If Not ItemState(#STATEGET, "LICH") & #STATE7 And ((GG\ptrRoom\iState & #SDARK And Not GG\fLightSource) Or Not ItemState(#STATEGET, "BRACELET") & #STATE7)
     ;die instantly if enter Crypt while dark or not wearing warding bracelet
     
     GU\fGray = #True
     GU\fPauseInput = #True
+    AddToOutput("An icy coldness stabs your heart. You have died. Bring light and an elven ward before facing D'rella.")
 
     sTimer\strEvent = "LICHINSTANT"
     sTimer\iType = #TIMERMILLISECONDS
@@ -135,6 +139,10 @@ Procedure.i LichHandler(strVerb.s, strNoun.s)
   Protected iState.i, fRC.i = #True, str.s
   Protected iNumItems.i, sState.CRYPTLICHSTATE
   
+  If ItemState(#STATEGET, "LICH") & #STATE7
+    AddToOutput("D'rella is already defeated.")
+    ProcedureReturn #True
+  EndIf
   LichState(@sState)
   iState = sState\iLichState
   
@@ -165,7 +173,7 @@ Procedure.i LichHandler(strVerb.s, strNoun.s)
         ItemState(#STATESET, "LICH", #STATE7)  ;lich dead
         ChangeItemRoom("LICH", #ITEMGONE, "CRYPT")
         ItemState(#STATESET, "DAGGER", #NUL, #STATE3)  ;remove dagger hum
-        RoomState(#STATESET, "CRYPT", #STATE0, #STATE6)  ;generic room description, without the lich
+        RoomState(#STATESET, "CRYPT", #STATE0 | #STATE7, #STATE6)  ;no living lich in subsequent descriptions
       Else
         str = "You are too weak to fight! You must find a way to restore your energy."
       EndIf

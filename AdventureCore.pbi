@@ -75,6 +75,11 @@ Procedure ChangeCurrentRoom(x.i, y.i, strRoom.s = "")
   If strRoom = ""
     strRoom = rgMove(x, y)\strRoom
   EndIf
+  If GG\ptrRoom\strRoom = "CRYPT" And strRoom <> "CRYPT"
+    RoomState(#STATESET, "CRYPT", #SDARK)
+    ItemState(#STATESET, "TORCH", #NUL, #STATE7)
+    ItemState(#STATESET, "DAGGER", #NUL, #STATE3)
+  EndIf
   
   GG\ptrRoom = FindMapElement(Rooms(), strRoom)
 
@@ -592,6 +597,10 @@ EndProcedure
 
 Procedure OnRoomPostEntry()
   Protected sTimer.EOTIMER
+  If GG\ptrRoom\strRoom = "PRINCE" And GG\ptrRoom\iState & #STATE1
+    ;The rescue description explicitly says Rynn takes back his scepter.
+    ChangeItemRoom("SCEPTER", #ITEMGONE)
+  EndIf
   
   ChangeStateAction("POSTENTRY", #ROOM_STATE)
   

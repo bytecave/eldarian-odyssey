@@ -134,17 +134,6 @@
       ChangeStateAction("PLAYERDIED", "BAND")
       ChangeCurrentRoom(0, 0, "BURROW")
       
-    Case "LICHINSTANT"
-      AddToOutput("^*** You awaken, shivering, in the burrow near entrace to the dungeon. Your icy heart warms and beats to the rhythm of the green pulsing on the band about you neck. Your band returns to a light blue and you sit up, ready for more.^^")
-      
-      GU\fPauseInput = #False
-      GU\fGray = #False
-      GG\fLightSource = #False
-      CheckTorch(GU\iDirty)
-      
-      ChangeStateAction("PLAYERDIED", "BAND")
-      ChangeCurrentRoom(0, 0, "BURROW")
-      
     Case "LICHINSTANT", "LICHDEATH"
       DoLichTimer(strEvent)
       

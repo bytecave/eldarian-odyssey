@@ -119,9 +119,9 @@
  @POSTENTRY:&7-1+3
 }ARCHWAY,(1.6),^0011,*010000000
  [0]This grand, stone archway is several feet long, running east-west. There are bloodstains all over the walls and floor.
- @ONENTRY:-7:TORCH
+ @ONENTRY:-7:^TORCH
 }CRYPT,(0.6),^9010,*110000000
- [*]As you enter the room, you feel an icy coldness that stabs to your heart, stopping its beating. You have died. Remember to prevent the darkness next time, and to make sure you have an elven ward.[0]This dusty crypt is bare, save[6] the fearsome lich queen and[0] a sarcophagus, long destroyed. [1]A dark, wizened lich glides toward you. "Who dare disturb Queen D'rella?!"[2] Your dagger explodes into brilliant white and vibrates fiercely; you almost drop it. The lich pauses, then continues. "I fear not thy weapon, nor thy wards, foolish adventurer."[3] The undead wizard shies away from the light of your torch. "The Lightgiver's bane! Most interesting." In a moment, light springs from your torch and becomes a part of the room, filling the space.[4] Noting the artifact you retrieved from the dragonling, the lich speaks once again. "A scepter worthy of a prince. Thou hast met mine dragonling!"[5] A small doorway is opened in the north wall.
+ [*]The crypt is pitch dark and icy cold.[0]This dusty crypt is bare, save[6] the fearsome lich queen and[0] a sarcophagus, long destroyed. [1]A dark, wizened lich glides toward you. "Who dare disturb Queen D'rella?!"[2] Your dagger explodes into brilliant white and vibrates fiercely; you almost drop it. The lich pauses, then continues. "I fear not thy weapon, nor thy wards, foolish adventurer."[3] The undead wizard shies away from the light of your torch. "The Lightgiver's bane! Most interesting." In a moment, light springs from your torch and becomes a part of the room, filling the space.[4] Noting the artifact you retrieved from the dragonling, the lich speaks once again. "A scepter worthy of a prince. Thou hast met mine dragonling!"[5] A small doorway is opened in the north wall.
  @ONENTRY:+7:^TORCH
  @POSTENTRY:+0-1-2-3-4-6
  @POSTENTRY:!7+6

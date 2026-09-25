@@ -1390,11 +1390,21 @@ Procedure.i KingHandler(strVerb.s, strNoun.s)
       EndIf
       
     Case "TALK", "SPEA"  ;speak
-      If ItemState(#STATEGET, "LICH") & #STATE7  ;lich is dead
+      If ItemState(#STATEGET, "LICH") & #STATE7 And RoomState(#STATEGET, "PRINCE") & #PRINCE_RESCUED
+        If iState & #KING_REWARD_PAID
+          AddToOutput("Eldred smiles. " + Chr(34) + "My son is home, thanks to you. Enjoy your reward, brave adventurer!" + Chr(34))
+          ProcedureReturn #True
+        EndIf
+        If Not GG\fHaveBackpack Or (InventoryHandler(#INVENTORYCHECK, "COIN") = #NOTHASITEM And GG\ptrInventory\iCount >= #MAXINVENTORY)
+          AddToOutput("Eldred thanks you for rescuing Rynn. Bring your backpack with room for the gold, then speak to him for your reward.")
+          ProcedureReturn #True
+        EndIf
         str = Chr(34) + "You found my precious son! I am beyond joy. Brave, brave adventurer. Please take these 10,000 gold coins and live in peace in my kingdom forever!" + Chr(34) 
         str + "^^>>> YOU HAVE WON THE GAME, CONGRATULATIONS! <<< -- please continue to explore or QUIT the game when ready. Thank you for playing."
         
         GG\iCoins + 10000
+        ChangeItemRoom("COIN", #INVENTORY)
+        ItemState(#STATESET, "KING", #KING_REWARD_PAID)
       ElseIf Not iState & #STATE6   ;haven't spoken to Eldred yet
         str = Chr(34) + "Have you seen my son, the prince? He's been missing for days and I'm quite worried." + Chr(34)
         ItemState(#STATESET, "KING", #STATE6)

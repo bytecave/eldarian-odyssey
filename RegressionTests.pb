@@ -63,6 +63,27 @@ Procedure AssertResponse(command.s, expected.s)
   Assert(Bool(FindString(output, expected, 1, #PB_String_NoCase)), command + " responds with: " + expected)
 EndProcedure
 
+Procedure RunCommands(script.s, expectedRoom.s)
+  Protected i.i, command.s, *room.ROOM, consistent.i
+  For i = 1 To CountString(script, "|") + 1
+    command = StringField(script, i, "|")
+    Command(command)
+    consistent = Bool(GG\ptrInventory\iCount = MapSize(GG\ptrInventory\mapNouns()))
+    ForEach Rooms()
+      *room = Rooms()
+      ForEach *room\mapNouns()
+        If FindMapElement(Nouns(), MapKey(*room\mapNouns()))
+          If Nouns()\strRoom <> *room\strRoom : consistent = #False : EndIf
+        Else
+          consistent = #False
+        EndIf
+      Next
+    Next
+    Assert(consistent, "world membership after " + command)
+  Next
+  Assert(Bool(GG\ptrRoom\strRoom = expectedRoom), "walkthrough checkpoint " + expectedRoom + " (actual " + GG\ptrRoom\strRoom + ")")
+EndProcedure
+
 Procedure Fresh()
   ReinitializeGame()
   ClearOutputBuffer()
@@ -298,7 +319,6 @@ Assert(Bool(GG\iTorchBurnTime = #TORCHTURNS - 1), "lighting torch counts one tur
 Define burnTime.i = GG\iTorchBurnTime
 Command("EXAMINE TORCH")
 Assert(Bool(GG\iTorchBurnTime = burnTime), "read-only examine does not consume torch")
-SetCurrentDirectory(testDirectory)
 CreateDirectory(testDirectory)
 SetCurrentDirectory(testDirectory)
 Command("SAVE COMMANDSAVE")
@@ -306,6 +326,60 @@ Assert(Bool(GU\iDirty = 0), "SAVE command stays clean after torch synchronizatio
 DeleteFile(testDirectory + "COMMANDSAVE.EOS")
 SetCurrentDirectory(originalDirectory)
 DeleteDirectory(testDirectory, "")
+Fresh()
+Visit("ELVENBARRICADE")
+RoomState(#STATESET, "ELVENBARRICADE", #STATE2, #STATE1)
+AssertResponse("PAY DAMBEN", "already open")
+Assert(Bool(GG\iCoins = 1), "legacy open barricade cannot charge again")
+Fresh()
+Visit("ZARBURGCLIFF")
+Command("JUMP CLIFF")
+Assert(Bool(Not GU\fPauseInput And ItemState(#STATEGET, "CLIFF") & #CLIFF_JUMP_WARNED), "first cliff jump warns")
+CreateDirectory(testDirectory)
+SetCurrentDirectory(testDirectory)
+SaveGame("JUMP")
+Fresh()
+Visit("ZARBURGCLIFF")
+Command("JUMP CLIFF")
+Assert(Bool(Not GU\fPauseInput), "new game resets cliff warning")
+LoadGame("JUMP", #True)
+Command("JUMP CLIFF")
+Assert(Bool(GU\fPauseInput And FindMapElement(GG\Timers(), "JUMPCLIFF")), "saved cliff warning restores second jump death")
+DeleteFile(testDirectory + "JUMP.EOS")
+SetCurrentDirectory(originalDirectory)
+DeleteDirectory(testDirectory, "")
+Fresh()
+Visit("DEEPCHASM")
+Command("JUMP CHASM")
+Assert(Bool(Not GU\fPauseInput And ItemState(#STATEGET, "CHASM") & #CHASM_JUMP_WARNED), "first chasm jump warns")
+Command("JUMP CHASM")
+Assert(Bool(GU\fPauseInput And FindMapElement(GG\Timers(), "JUMPCHASM")), "second chasm jump schedules death")
+Fresh()
+Assert(Bool(Not ItemState(#STATEGET, "CHASM") & #CHASM_JUMP_WARNED), "new game resets chasm warning")
+Fresh()
+RunCommands("LIGHT TORCH|KNOCK GATE", #STARTINGROOM)
+FindMapElement(GG\Timers(), "KNOCKGATE")
+GG\Timers()\iStart = ElapsedMilliseconds() - GG\Timers()\iTime
+TimerCommandHandler(TimerCommand())
+RunCommands("PAY WATCHMAN|N|N|TALK KING|TALK KING|KNEEL KING|W|TALK CLERK|E|S|BUY MEALBAR|W|PAY DROW|E|E|S|GET DAGGER|N|N|N|E|S|DIG BOTTLE|GET POTION|E|S", "WOODSTREE")
+RunCommands("CLIMB TREE|CLIMB TREE|CLIMB DOWN|CLIMB DOWN|W|S|E|SEARCH TENT|S|PAY DAMBEN|W|W|W|TALK BELZAR|TALK BELZAR", "ELVENTOWNHALL")
+RunCommands("E|E|E|E|TIE ROPE|CLIMB DOWN|GET MUSHROOM|N|GET STONE|SWIM RIVER|SMASH BOX|GET KEY|SWIM RIVER|S|E|LIGHT TORCH|N|N", "FISHPOND")
+RunCommands("DROP KEY|GET POLE|BAIT POLE|DROP MUSHROOM|CATCH FISH|N|THROW FISH|GET SCEPTER|S|GET KEY|S|S|S|USE KEY|S|W|UNLOCK DOOR|W|W|FEED PRISONER|TALK PRISONER|TALK PRISONER", "PRISONCELL2")
+RunCommands("E|E|S|W|FIGHT SKELETON|W|W|W|W|FIGHT LICH|DRINK POTION|FIGHT LICH|SEARCH SARCOPHAGUS|PRESS BUTTON|N", "PRINCE")
+Assert(Bool(GG\ptrRoom\iState & #PRINCE_RESCUED), "complete parser walkthrough rescues Rynn")
+RunCommands("S|E|E|E|E|E|N|E|N|N|W|CLIMB UP|W|W|W|W|W|N|E|N|N|TALK KING|TALK KING", "ZARBURGTHRONEROOM")
+Assert(Bool(GG\iCoins = 10001 And ItemState(#STATEGET, "KING") & #KING_REWARD_PAID), "complete parser walkthrough wins exactly once")
 StopDrawing()
+Define depth.i, pixel.i
+For depth = 24 To 32 Step 8
+  CreateImage(2, 7, 3, depth)
+  StartDrawing(ImageOutput(2))
+  Box(0, 0, 7, 3, RGB(10, 100, 200))
+  Grayscale::Grayscale(2)
+  pixel = Point(6, 2)
+  Assert(Bool(Red(pixel) = Green(pixel) And Green(pixel) = Blue(pixel) And pixel = Point(0, 0)), "ASM grayscale handles " + Str(depth) + " bit image including final pixel")
+  StopDrawing()
+  FreeImage(2)
+Next
 PrintN(Str(checks) + " checks; " + Str(failures) + " failures")
 End Bool(failures > 0)

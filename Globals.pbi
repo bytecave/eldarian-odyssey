@@ -53,6 +53,8 @@ EndEnumeration
 ;These aliases apply only to their named room/noun; bits are not global meanings.
 #PRINCE_RESCUED = #STATE0
 #KING_REWARD_PAID = #STATE4
+#CLIFF_JUMP_WARNED = #STATE7
+#CHASM_JUMP_WARNED = #STATE7
 
 Enumeration
   #DIALOG_NONE

@@ -1034,12 +1034,12 @@ EndProcedure
 Procedure.i ChasmHandler(strVerb.s, strNoun.s)
   Protected fRC.i = #True
   
-  Static iTries = 0
   Protected sTimer.EOTIMER
   
   Select strVerb
     Case "JUMP", "LEAP"
-      If iTries % 2
+      If ItemState(#STATEGET, "CHASM") & #CHASM_JUMP_WARNED
+        ItemState(#STATESET, "CHASM", #NUL, #CHASM_JUMP_WARNED)
         AddToOutput("Holy cow! You jump into the chasm and rapidly enjoy the view before crashing to the ground. And dying. Dying a lot.")
     
         GU\fGray = #True
@@ -1053,9 +1053,8 @@ Procedure.i ChasmHandler(strVerb.s, strNoun.s)
         TimerCommand(@sTimer)
       Else
         AddToOutput("It's too far down. You'd probably kill yourself.")
+        ItemState(#STATESET, "CHASM", #CHASM_JUMP_WARNED)
       EndIf
-      
-      iTries + 1
       
     Case "DESC", "DOWN"  ;descend
       fRC = RopeHandler("DESC", "ROPE")
@@ -1498,6 +1497,10 @@ Procedure.i DambenHandler(strVerb.s, strNoun.s)
   Protected sTimer.EOTIMER
   
   iState = ItemState(#STATEGET, "DAMBEN")
+  ;Older saves record payment only in the barricade room's open state.
+  If RoomState(#STATEGET, "ELVENBARRICADE") & #STATE2
+    iState | #STATE5
+  EndIf
   
   Select strVerb 
     Case "TALK", "SPEA"
@@ -2010,12 +2013,12 @@ EndProcedure
 Procedure.i CliffHandler(strVerb.s, strNoun.s)
   Protected fRC.i = #True
   
-  Static iTries = 0
   Protected sTimer.EOTIMER
   
   Select strVerb
     Case "JUMP", "LEAP"
-      If iTries % 2
+      If ItemState(#STATEGET, "CLIFF") & #CLIFF_JUMP_WARNED
+        ItemState(#STATESET, "CLIFF", #NUL, #CLIFF_JUMP_WARNED)
         AddToOutput("AAAIIiieeeeeeee! You jump from the edge of the cliff. You're very brave. Also, it appears, very dead.")
     
         GU\fGray = #True
@@ -2029,9 +2032,8 @@ Procedure.i CliffHandler(strVerb.s, strNoun.s)
         TimerCommand(@sTimer)
       Else
         AddToOutput("What?! That would be crazy. Don't do that!")
+        ItemState(#STATESET, "CLIFF", #CLIFF_JUMP_WARNED)
       EndIf
-      
-      iTries + 1
       
     Case "CLIM", "DOWN", "UP"  ;climb
       ClimbHandler("DOWN", "CLIFF")

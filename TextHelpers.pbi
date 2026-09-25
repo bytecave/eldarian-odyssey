@@ -73,15 +73,15 @@ Procedure AddToOutput(sText.s, fDrawText.i = #False)
         ;remove new line tokens, carriage returns, and line feeds for printing. CR, LF, or CRLF all okay
         Select strChar
           Case #NEWLINETOKEN
-            ReplaceString(sText, #NEWLINETOKEN, " ", #PB_String_InPlace, iLineLen, 1)
+            sText = ReplaceString(sText, #NEWLINETOKEN, " ", #PB_String_CaseSensitive, iLineLen, 1)
             fGotLine = #True
           Case #CR$
-            ReplaceString(sText, #CR$, " ", #PB_String_InPlace, iLineLen, 1)
-            ReplaceString(sText, #LF$, " ", #PB_String_InPlace, iLineLen + 1, 1)
+            sText = ReplaceString(sText, #CR$, " ", #PB_String_CaseSensitive, iLineLen, 1)
+            sText = ReplaceString(sText, #LF$, " ", #PB_String_CaseSensitive, iLineLen + 1, 1)
             iLineLen + 1   ;bump past linefeed as we just processed two characters
             fGotLine = #True
           Case #LF$
-            ReplaceString(sText, #LF$, " ", #PB_String_InPlace, iLineLen, 1)
+            sText = ReplaceString(sText, #LF$, " ", #PB_String_CaseSensitive, iLineLen, 1)
             fGotLine = #True
           Default
             If  iLineLen = iStrLen

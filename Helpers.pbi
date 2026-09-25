@@ -22,7 +22,7 @@ Procedure.s AorAnorAny(strNoun.s)
 EndProcedure
 
 Macro ChangeAvailDirection(roomx, roomy, idir, strnew)
-  ReplaceString(rgMove(roomx, roomy)\strAvail, Mid(rgMove(roomx, roomy)\strAvail, idir, 1), strnew, #PB_String_InPlace, idir, 1)
+  rgMove(roomx, roomy)\strAvail = ReplaceString(rgMove(roomx, roomy)\strAvail, Mid(rgMove(roomx, roomy)\strAvail, idir, 1), strnew, #PB_String_CaseSensitive, idir, 1)
   GU\iDirty + 1
 EndMacro
 

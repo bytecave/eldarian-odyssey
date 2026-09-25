@@ -8,7 +8,7 @@ The supplied Codex prompt authorized this work. The supplied preliminary review 
 
 Verified compiler: **PureBasic 6.41 (Windows - x64)**, normal ASM `pbcompiler.exe`. All five uses of removed `#PB_String_InPlace` were migrated to assigned `ReplaceString()` results, retaining case sensitivity, start positions, and replacement counts. No additional compile-blocking incompatibilities remained after that migration. Current semantics were checked against the official [ReplaceString reference](https://www.purebasic.com/documentation/string/replacestring.html), [migration guide](https://www.purebasic.com/documentation/reference/migration.html), and [compiler CLI reference](https://www.purebasic.com/documentation/reference/cli_compiler.html).
 
-The project creator and both x64 compiler selections now name 6.41 x64. DebugX86 now actually enables debugging. All four targets retain their paths, icon, company/product fields, and IFID; their project version fields are now 1.02. The x86 compiler selections retain their historical metadata pending validation with an installed x86 compiler.
+The project creator and both x64 compiler selections now name 6.41 x64. DebugX86 now actually enables debugging. All four targets retain their paths, icon, company/product fields, and IFID; their project version fields are now 1.03. The x86 compiler selections retain their historical metadata pending validation with an installed x86 compiler.
 
 Run from this directory:
 
@@ -16,7 +16,7 @@ Run from this directory:
 powershell -NoProfile -File .\Validate.ps1
 ```
 
-This runs `/CHECK`, the requested x64 release build with `/ICON /XP /USER`, a debugger-enabled build, and the console regression executable. It stops on failure and does not launch the graphical game. The CLI builds embed separate release/debug Windows version resources, both reporting version 1.02; the PBP targets use the same version number for IDE builds.
+This runs `/CHECK`, the requested x64 release build with `/ICON /XP /USER`, a debugger-enabled build, and the console regression executable. It stops on failure and does not launch the graphical game. The CLI builds embed separate release/debug Windows version resources, both reporting version 1.03; the PBP targets use the same version number for IDE builds.
 
 Results at completion:
 
@@ -25,13 +25,13 @@ Results at completion:
 | Application `/CHECK` | Passed with PureBasic 6.41 x64 ASM |
 | Release executable | Built successfully at `Binaries/EldarianOdyssey-x64.exe` |
 | Debugger-enabled executable | Built successfully; not a claim of an interactive debugger playthrough |
-| Published x64 archives | `Binaries/EldarianOdyssey-x64.zip` and `Binaries/EldarianOdyssey-x64-Debug.zip` each contain exactly their matching version 1.02 executable |
-| Regression executable | **211 checks, 0 failures** |
+| Published x64 archives | `Binaries/EldarianOdyssey-x64.zip` and `Binaries/EldarianOdyssey-x64-Debug.zip` each contain exactly their matching version 1.03 executable |
+| Regression executable | **212 checks, 0 failures** |
 | Complete game progression | Executed from fresh state through actual parser/handlers, rescue, return, and once-only reward; inventory membership checked after each command |
 | Save/load | Real temporary EOS files exercised for victory, timers/metadata, jump warnings, reset, invalid-load rejection, and failed-save dirty state |
 | x64 inline assembly | Executed grayscale conversion on 24- and 32-bit images, including the final pixel |
 | Graphical startup | Launched and visually inspected: maximized window, welcome/room text, embedded presentation, direction and torch indicators appeared without an immediate fatal error |
-| Physical keyboard/dialogs/themes | **Requires manual testing.** Synthetic F-key input was inconclusive |
+| Physical keyboard/dialogs/themes | F5 was verified in the rebuilt graphical application in both directions. F1/F2, HELP paging, text editing/history, confirmations, and other physical input still require owner testing |
 | x86, Linux, macOS | Not built or run |
 
 The harness includes the actual game modules and draws text to an offscreen image. Targeted edge cases use explicit world fixtures. The complete walkthrough uses normal commands without teleporting or granting items; it advances the opening watchman's timer directly instead of waiting. This validates engine behavior, not the keyboard/rendering event loop or every possible command ordering.
@@ -68,7 +68,7 @@ The harness includes the actual game modules and draws text to an offscreen imag
 - New/load resets transient timers and UI state, validates required room/noun references before replacing the world, rebuilds membership from noun locations, closes preferences, and preserves dirty state when saving fails. One-time descriptions retain their source text so earlier saves can show them again.
 - Cliff/chasm warning counters were static procedure locals: New Game did not reset them and saves omitted them. They now use previously unused bit 7 on each respective noun, preserving the existing alternating warning/death behavior.
 - Text search respects buffer bounds; wrapping progresses with trailing CR or very narrow widths. Missing randomized-message pointers are guarded, and a missing initialization error string was added.
-- Keyboard state is sampled once per frame. History cursor movement resets correctly; function-key overlays cannot interrupt paused death sequences. Physical input remains a manual check.
+- Keyboard state is sampled once per frame, and release edges are captured before command-line processing can consume them. This restores F5 theme switching; both directions were verified in the graphical application. History cursor movement resets correctly, and function-key overlays cannot interrupt paused death sequences.
 - Torch lighting consumes one turn; unchanged state assignments no longer mark saves dirty. Font fallback returns a PureBasic font identifier rather than a Windows handle. An unused no-op text helper was removed.
 
 ## Remaining limits and intentionally unfinished content

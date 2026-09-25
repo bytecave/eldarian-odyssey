@@ -45,6 +45,9 @@ InitializeGame()
 ;main game loop
 ;
 Define rc.i, Event.i, strEvent.s
+Define fYReleased.i, fNReleased.i, fEscapeReleased.i
+Define fPageDownReleased.i, fPageUpReleased.i
+Define fF1Released.i, fF2Released.i, fF5Released.i
 
 While #True
   Repeat
@@ -57,8 +60,16 @@ While #True
   
   ;draw onto buffer image
   ClearScreen(0)
-  ;Sample once per frame so GetCommand and dialog shortcuts see the same edges.
+  ;Capture release edges before KeyboardInkey() processes command input.
   ExamineKeyboard()
+  fYReleased = KeyboardReleased(#PB_Key_Y)
+  fNReleased = KeyboardReleased(#PB_Key_N)
+  fEscapeReleased = KeyboardReleased(#PB_Key_Escape)
+  fPageDownReleased = KeyboardReleased(#PB_Key_PageDown)
+  fPageUpReleased = KeyboardReleased(#PB_Key_PageUp)
+  fF1Released = KeyboardReleased(#PB_Key_F1)
+  fF2Released = KeyboardReleased(#PB_Key_F2)
+  fF5Released = KeyboardReleased(#PB_Key_F5)
   StartDrawing(ImageOutput(#IMAGEBUFID))
   
   ;Draw background
@@ -97,19 +108,19 @@ While #True
     DialogBox(#DIALOG_REFRESH)
     
     If GU\iDialog = #DIALOG_QUESTION
-      If KeyboardReleased(#PB_Key_Y)
+      If fYReleased
         OkayToAct("Y")
-      ElseIf KeyboardReleased(#PB_Key_N) Or KeyboardReleased(#PB_Key_Escape)
+      ElseIf fNReleased Or fEscapeReleased
         OkayToAct("N")
       EndIf
     Else
       ;Credits, About, or Help
-      If KeyboardReleased(#PB_Key_Escape)
+      If fEscapeReleased
         GU\fGray = #False
         GU\iDialog = #DIALOG_NONE
-      ElseIf KeyboardReleased(#PB_Key_PageDown)
+      ElseIf fPageDownReleased
         GU\iPageKey = #PB_Key_PageDown
-      ElseIf KeyboardReleased(#PB_Key_PageUp)
+      ElseIf fPageUpReleased
         GU\iPageKey = #PB_Key_PageUp
       EndIf
     EndIf
@@ -118,15 +129,15 @@ While #True
   If GU\iDialog <> #DIALOG_QUESTION And Not GU\fPauseInput
     If GU\iDialog <> #DIALOG_HELP
       ;if request for Dialog box
-      If KeyboardReleased(#PB_Key_F1)
+      If fF1Released
         DialogBox(#DIALOG_ABOUT)
-      ElseIf KeyboardReleased(#PB_Key_F2)
+      ElseIf fF2Released
         DialogBox(#DIALOG_CREDITS)
       EndIf
     EndIf
     
     ;change theme
-    If KeyboardReleased(#PB_Key_F5) 
+    If fF5Released
       If GG\iTheme = #THEME2
         SetTheme(#THEME1)
       Else

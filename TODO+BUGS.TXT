@@ -1,87 +1,38 @@
 READING THIS WILL GIVE HINTS TO THE GAME. DON'T READ IF YOU ARE INTENDING TO PLAY!!!
 
+Status updated 2026-09-25 after the PureBasic 6.41 review.
 
+Status key:
+  [FIXED - AUTOMATED] Implemented and covered by the regression harness.
+  [FIXED - MANUAL UI] Implemented and checked in the graphical application; retain for future UI regression testing.
+  [REVIEWED] The current implementation is internally consistent; design confirmation may still be useful.
 
+[FIXED - AUTOMATED] PETITION KING did not work.
+  PETITION is recognized and reaches the King's normal conversation flow.
 
+[FIXED - AUTOMATED] TALK GUARD needed the clue, "Kneel before the king, knave!"
+  The throne-room Defender gives the clue before the torch blessing and stops repeating it afterward.
 
+[FIXED - AUTOMATED] After DIG BOTTLE in the woods, the potion appeared but the bottle remained.
+  The bottle is removed, the room description advances, and drinking the potion consumes it.
 
+[FIXED - AUTOMATED] LOG/LOGS could not be examined near the log buildings in the elven village.
+  Contextual LOG/LOGS resolution now selects the village buildings.
 
+[FIXED - AUTOMATED] LOOK LOG did nothing in the town hall.
+  Contextual LOG/LOGS resolution now selects the town hall's supporting log.
 
+[FIXED - AUTOMATED] The town hall ceiling had no noun.
+  CEILING/ROOF scenery can be examined.
 
----
+[FIXED - AUTOMATED] The town hall circlet had no noun.
+  CIRCLET can be examined and correctly refuses GET.
 
+[REVIEWED] "I am Belzar, high chieftain." / historical note: "Zyland?"
+  Current runtime content consistently names the chieftain Belzar. No rename was made because the historical question did not establish a different intended name. Confirm only if Zyland was meant to be a distinct or replacement character.
 
+[FIXED - AUTOMATED] TALK DAMBEN after payment still said, "Gold is good."
+  Paid dialogue now acknowledges the open way, and repeat payment cannot remove more gold, including with older saves that already record an open barricade.
 
-
-
-
-
-
-
-
----
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-
-
-
----
-
-
-
-
-
-
----
-
-
-
-
-
-
-----
-
-
-
-
-
-
-Eldarian Odyssey: Petition King does not work.
-Talk Guard: Kneel before the king, nave!
-
-WOODs. After Dig Bottle, Potion appears, and bottle should disappear completely.
-
-Can't look LOG/LOGS in Elf village near log buildings
-
-LOOK LOG at townhall does nothing
-
-townhall can't look ceiling, noun doesn't exist.
-
-townhall can't look/get circlet. noun doesn't exist.
-
-I am Belzar high chieftain. Zyland?
-
-Talk Damben after he already has the gold. Still says "Gold is good," should say something else.
+[FIXED - MANUAL UI] F5 stopped toggling the light/dark theme.
+  Function and dialog key-release edges are now captured before command-line keyboard processing. F5 was verified in the rebuilt graphical application in both directions. Keep F1, F2, F5, HELP paging, Escape, and confirmation keys in the manual UI regression checklist.

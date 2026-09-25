@@ -1,6 +1,6 @@
 1 VERSIONINFO
-FILEVERSION 1,0,2,0
-PRODUCTVERSION 1,0,2,0
+FILEVERSION 1,0,3,0
+PRODUCTVERSION 1,0,3,0
 FILEFLAGSMASK 0x3fL
 FILEFLAGS 0x0L
 FILEOS 0x40004L
@@ -13,11 +13,12 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "ByteCave"
       VALUE "FileDescription", "Eldarian Odyssey Text Adventure Game"
-      VALUE "FileVersion", "1.02"
+      VALUE "FileVersion", "1.03"
       VALUE "InternalName", "EldarianOdyssey"
+      VALUE "LegalCopyright", "Copyright 2018-2026, ByteCave"
       VALUE "OriginalFilename", "EldarianOdyssey-x64.exe"
       VALUE "ProductName", "Eldarian Odyssey"
-      VALUE "ProductVersion", "1.02"
+      VALUE "ProductVersion", "1.03"
     END
   END
   BLOCK "VarFileInfo"

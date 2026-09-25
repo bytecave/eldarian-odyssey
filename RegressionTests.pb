@@ -94,6 +94,7 @@ OpenConsole()
 OnErrorCall(@Crash())
 P_InitalizeLoc("enu")
 Assert(Bool(_L(apptitle) = "Eldarian Odyssey"), "localized title")
+Assert(Bool(_L(copyright) = "(c) 2018-2026, ByteCave"), "localized copyright is current")
 InitializeRooms()
 GG\ptrInventory = FindMapElement(Rooms(), #INVENTORY)
 GG\ptrInventory\iRoomX = -1

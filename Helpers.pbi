@@ -1,5 +1,6 @@
 ﻿Declare AddRoomDescription(fForce.i)
 Declare DialogBox(nDialogMode.i, strQuestion.s = "", strVerb.s = "")
+Declare ReinitializeGame()
   
 #DEFAULTSAVEFILE = "SAVEGAME.EOS"
 #EO_EXTENSION = ".EOS"
@@ -287,7 +288,7 @@ Procedure SaveGame(strFileName.s)
     ResetMap(GG\Timers())
     While NextMapElement(GG\Timers())
       With GG\Timers()
-        WritePreferenceString(\strEvent, Str(\iType) + "," + Str(\iStart) + "," + Str(\iCount))
+        WritePreferenceString(\strEvent, Str(\iType) + "," + Str(\iStart) + "," + Str(\iCount) + "," + \strRoom + "," + \strMetadata)
       EndWith
     Wend
     
@@ -323,6 +324,7 @@ Procedure SaveGame(strFileName.s)
     Wend
     
     ClosePreferences()
+    GU\iDirty = 0
     
     If strFileName <> #DEFAULTSAVEFILE
       str = "Game saved to " + strFileName + "."
@@ -335,8 +337,79 @@ Procedure SaveGame(strFileName.s)
   
   AddToOutput(str)
   
-  ;flag that no state has changed since last save or load
-  GU\iDirty = 0
+EndProcedure
+
+;Validate references before modifying the live world. Older saves have three
+;timer fields; KNOCKGATE is the only historical room-triggered event.
+Procedure.i ValidateSaveGame()
+  Protected group.s, key.s, value.s, name.s, timerType.i
+  Protected NewMap seen.s()
+  Protected *room.ROOM, *noun.NOUN
+  ExaminePreferenceGroups()
+  While NextPreferenceGroup()
+    group = PreferenceGroupName()
+    seen(group) = "1"
+    name = Mid(group, 3)
+    If group = "G:GameGlobals"
+      If Not FindMapElement(Rooms(), ReadPreferenceString("current", "")) Or Not FindMapElement(Rooms(), ReadPreferenceString("prev", ""))
+        ProcedureReturn #False
+      EndIf
+      If ReadPreferenceInteger("coins", -1) < 0 Or ReadPreferenceInteger("torchburn", -1) < 0 Or ReadPreferenceInteger("numcommands", -1) < 0
+        ProcedureReturn #False
+      EndIf
+    ElseIf Left(group, 2) = "R:"
+      *room = FindMapElement(Rooms(), name)
+      If Not *room : ProcedureReturn #False : EndIf
+      If *room\iRoomX >= 0
+        value = ReadPreferenceString("directions", "")
+        If Len(value) <> 4 Or RemovePunctuation(value, "012356789") <> ""
+          ProcedureReturn #False
+        EndIf
+      EndIf
+    ElseIf Left(group, 2) = "O:"
+      *noun = FindMapElement(Nouns(), Left(name, #PARSELEN))
+      If Not *noun : ProcedureReturn #False : EndIf
+      If *noun\strNoun <> name Or *noun\strBaseNoun <> "" : ProcedureReturn #False : EndIf
+      value = ReadPreferenceString("room", "")
+      If value <> "" And Not FindMapElement(Rooms(), value) : ProcedureReturn #False : EndIf
+      If value = "" And name <> "BAND" : ProcedureReturn #False : EndIf
+    Else
+      ProcedureReturn #False
+    EndIf
+    ExaminePreferenceKeys()
+    While NextPreferenceKey()
+      key = PreferenceKeyName()
+      value = PreferenceKeyValue()
+      If group = "G:GameGlobals"
+        Select key
+          Case "lightsource", "lightpermanent", "intree", "current", "prev", "backpack", "numcommands", "coins", "torchburn"
+          Default
+            timerType = Val(StringField(value, 1, ","))
+            If CountString(value, ",") < 2 Or timerType < #TIMERMILLISECONDS Or timerType > #TIMERROOM
+              ProcedureReturn #False
+            EndIf
+            If timerType = #TIMERROOM And Not FindMapElement(Rooms(), StringField(value, 4, ",")) And key <> "KNOCKGATE"
+              ProcedureReturn #False
+            EndIf
+        EndSelect
+      ElseIf Left(group, 2) = "R:" And key <> "state" And key <> "directions"
+        *noun = FindMapElement(Nouns(), key)
+        If Not *noun : ProcedureReturn #False : EndIf
+        If *noun\strNoun <> value Or *noun\strBaseNoun <> "" : ProcedureReturn #False : EndIf
+      EndIf
+    Wend
+  Wend
+  If Not FindMapElement(seen(), "G:GameGlobals") : ProcedureReturn #False : EndIf
+  ForEach Rooms()
+    If Not FindMapElement(seen(), "R:" + Rooms()\strRoom) : ProcedureReturn #False : EndIf
+  Next
+  ForEach Nouns()
+    If Nouns()\strBaseNoun = "" And Not FindMapElement(seen(), "O:" + Nouns()\strNoun)
+      ;Scenery introduced after the original save format may be absent.
+      If Nouns()\strNoun <> "CEILING" And Nouns()\strNoun <> "CIRCLET" : ProcedureReturn #False : EndIf
+    EndIf
+  Next
+  ProcedureReturn #True
 EndProcedure
 
 ;load from #DEFAULTSAVEFILE unless user specified filename in the LOAD command
@@ -372,6 +445,12 @@ Procedure LoadGame(strFileName.s, fPermitted.i = #False)
   EndIf
 
   If OpenPreferences(GetCurrentDirectory() + strFileName, #PB_Preference_NoSpace)
+    If Not ValidateSaveGame()
+      ClosePreferences()
+      AddToOutput("This save is incomplete or contains invalid world references. The current game has not been changed.")
+      ProcedureReturn
+    EndIf
+    ReinitializeGame()
     ExaminePreferenceGroups()
     
     While NextPreferenceGroup()
@@ -406,13 +485,20 @@ Procedure LoadGame(strFileName.s, fPermitted.i = #False)
               Case "torchburn"
                 GG\iTorchBurnTime = Val(strValue)
               Default
-                SplitString(strValue, ",", rgTimer())
                 AddMapElement(GG\Timers(), strKey)
                 
                 With GG\Timers()
-                  \iType = Val(rgTimer(0))
-                  \iStart = Val(rgTimer(1))
-                  \iCount= Val(rgTimer(2))  ;iTime and iCount are a union, so filling in \iCount will fill in \iTime
+                  \iType = Val(StringField(strValue, 1, ","))
+                  \iStart = Val(StringField(strValue, 2, ","))
+                  \iCount = Val(StringField(strValue, 3, ","))
+                  \strRoom = StringField(strValue, 4, ",")
+                  \strMetadata = StringField(strValue, 5, ",")
+                  If \iType = #TIMERROOM And \strRoom = "" And strKey = "KNOCKGATE"
+                    \strRoom = #STARTINGROOM
+                  ElseIf \iType = #TIMERMILLISECONDS
+                    ;Preserve the historical policy: real-time events expire on load.
+                    \iStart = ElapsedMilliseconds() - \iTime
+                  EndIf
                   \strEvent = strKey
                 EndWith
             EndSelect
@@ -462,6 +548,22 @@ Procedure LoadGame(strFileName.s, fPermitted.i = #False)
       Wend   
     Wend
     
+    ClosePreferences()
+    ;Rebuild membership from each noun's saved location, repairing old duplicate
+    ;memberships and counts without changing the save file itself.
+    ForEach Rooms()
+      ClearMap(Rooms()\mapNouns())
+    Next
+    ForEach Nouns()
+      If Nouns()\strBaseNoun = "" And Nouns()\strRoom <> ""
+        *ptrRoom = FindMapElement(Rooms(), Nouns()\strRoom)
+        *ptrRoom\mapNouns(Left(Nouns()\strNoun, #PARSELEN)) = Nouns()\strNoun
+      EndIf
+    Next
+    GG\ptrInventory\iCount = MapSize(GG\ptrInventory\mapNouns())
+    GG\strLastSaveFile = strFileName
+    ;Descriptions must not repeat entry actions on load.
+    GG\ptrPrevRoom = GG\ptrRoom
     ClearOutputBuffer()
     
     If strFileName <> #DEFAULTSAVEFILE

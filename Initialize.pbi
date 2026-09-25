@@ -281,6 +281,9 @@ CompilerEndIf
                 
                 \strRoom = strRoom
                 \iState = 0
+                \iRoomX = -1
+                \iRoomY = -1
+                \strStateAction = ""
                   
               Case #START_COORD
                 \iRoomX = Val(Left(strWord,1))
@@ -288,8 +291,8 @@ CompilerEndIf
               
   CompilerIf #PB_Compiler_Debugger
   ;when debugging only, check to see if x,y are valid coordinates
-    If iRoomX > #ROOMX Or iRoomY > #ROOMY
-      Debug "Bad room coordinates: (" + Str(iRoomX) + "," + Str(iRoomY) + ")"
+    If \iRoomX < 0 Or \iRoomX >= #ROOMX Or \iRoomY < 0 Or \iRoomY >= #ROOMY
+      Debug "Bad room coordinates: (" + Str(\iRoomX) + "," + Str(\iRoomY) + ")"
       End
     EndIf
   CompilerEndIf
@@ -367,7 +370,7 @@ Procedure InitializeThingsAndActions(fReinitialize.i = #False)
                   
 CompilerIf #PB_Compiler_Debugger
 ;when debugging only, check word list to see if we have a duplicate noun after shortening to first #PARSELEN characters
-  If FindMapElement(Nouns(), strNoun)
+  If FindMapElement(Nouns(), Left(strNoun, #PARSELEN))
     Debug "Duplicate noun found! " + Nouns()\strNoun
     End
   EndIf
@@ -518,6 +521,12 @@ Procedure InitializeGame()
 EndProcedure
 
 Procedure ReinitializeGame()
+  ClearMap(GG\Timers())
+  GG\iNumCommands = 0
+  GU\fPauseInput = #False
+  GU\fGray = #False
+  GU\iDialog = #DIALOG_NONE
+  GG\strDialogVerb = ""
   InitializeRooms(#True)
   InitializeThingsAndActions(#True)
   

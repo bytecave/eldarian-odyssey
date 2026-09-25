@@ -634,7 +634,6 @@ Procedure AddRoomDescription(fForce.i)
         AddToOutput(RSet("_", GU\iXWidth / TextWidth("_"), "_"))
         AddToOutput("^")
         
-        \ptrRoom\strOneTime = ""
         \ptrRoom\iState & ~(#SONETIME)
       EndIf
       

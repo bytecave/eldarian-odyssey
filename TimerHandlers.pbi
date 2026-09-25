@@ -34,6 +34,7 @@
           \strEvent = "KNOCKGATE"
           \iType = #TIMERROOM
           \strRoom = "ZARBURGSOUTHGATE"
+          \strMetadata = strMetadata
         EndWith
         
         TimerCommand(@sTimer)

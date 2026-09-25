@@ -168,6 +168,57 @@ Command("TALK KING")
 Command("TALK KING")
 Assert(Bool(GG\iCoins = 10001 And ItemState(#STATEGET, "KING") & #KING_REWARD_PAID), "victory reward paid exactly once")
 Assert(Bool(InventoryHandler(#INVENTORYCHECK, "COIN") = #HASITEM And GG\ptrInventory\iCount = MapSize(GG\ptrInventory\mapNouns())), "victory reward has consistent inventory")
+Define testDirectory.s = GetTemporaryDirectory() + "EORegression-" + Str(GetCurrentProcessId_()) + "\"
+Define originalDirectory.s = GetCurrentDirectory(), roomActions.s, event.s
+Define timer.EOTIMER
+CreateDirectory(testDirectory)
+SetCurrentDirectory(testDirectory)
+SaveGame("VICTORY")
+Assert(Bool(GU\iDirty = 0), "successful save clears dirty flag")
+Fresh()
+LoadGame("VICTORY", #True)
+Assert(Bool(GG\iCoins = 10001 And RoomState(#STATEGET, "PRINCE") & #PRINCE_RESCUED), "save restores rescued prince and coins")
+Command("TALK KING")
+Assert(Bool(GG\iCoins = 10001), "loaded victory does not repeat reward")
+Fresh()
+timer\strEvent = "KNOCKGATE"
+timer\iType = #TIMERROOM
+timer\strRoom = #STARTINGROOM
+timer\strMetadata = "CHOP"
+TimerCommand(@timer)
+Visit("ZARBURGCLIFF")
+SaveGame("TIMERS")
+timer\strEvent = "JUMPCLIFF"
+timer\iType = #TIMERMILLISECONDS
+timer\iTime = 5000
+TimerCommand(@timer)
+LoadGame("TIMERS", #True)
+Assert(Bool(MapSize(GG\Timers()) = 1 And FindMapElement(GG\Timers(), "KNOCKGATE")), "load replaces live timers")
+Assert(Bool(GG\Timers()\strRoom = #STARTINGROOM And GG\Timers()\strMetadata = "CHOP"), "room timer target and metadata round trip")
+Visit(#STARTINGROOM)
+event = TimerCommand()
+Assert(Bool(event = "KNOCKGATE,CHOP"), "restored room timer fires with its own metadata")
+TimerCommandHandler(event)
+GU\iDirty = 9
+SaveGame("MISSING\SAVE")
+Assert(Bool(GU\iDirty = 9), "failed save retains dirty flag")
+CreatePreferences(testDirectory + "INVALID.EOS")
+PreferenceGroup("G:GameGlobals")
+WritePreferenceString("current", "NONEXISTENT")
+ClosePreferences()
+LoadGame("INVALID", #True)
+Assert(Bool(GG\ptrRoom\strRoom = #STARTINGROOM And GU\iDirty = 9), "invalid save rejected without changing world")
+roomActions = GG\ptrRoom\strStateAction
+TimerCommand(@timer)
+Fresh()
+Fresh()
+Assert(Bool(MapSize(GG\Timers()) = 0 And Not GU\fPauseInput And GG\iNumCommands = 0), "new game clears timers and command count")
+Assert(Bool(GG\ptrRoom\strStateAction = roomActions), "new game does not append duplicate room actions")
+DeleteFile(testDirectory + "VICTORY.EOS")
+DeleteFile(testDirectory + "TIMERS.EOS")
+DeleteFile(testDirectory + "INVALID.EOS")
+SetCurrentDirectory(originalDirectory)
+DeleteDirectory(testDirectory, "")
 StopDrawing()
 PrintN(Str(checks) + " checks; " + Str(failures) + " failures")
 End Bool(failures > 0)

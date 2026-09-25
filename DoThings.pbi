@@ -529,6 +529,7 @@ Procedure.s TimerCommand(*sTIMER.EOTIMER = #NUL)
           Case #TIMERROOM
             If \strRoom = GG\ptrRoom\strRoom    ;we're now in the correct room
               strElapsed = \strEvent
+              Break
             EndIf
         EndSelect
       EndWith

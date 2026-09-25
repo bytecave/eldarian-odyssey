@@ -149,7 +149,16 @@ EndProcedure
 
 ;full name on noun
 Procedure ChangeItemRoom(strNoun.s, strNew.s, strPrev.s = "")
-  Protected *ptrRoom.ROOM
+  Protected *ptrRoom.ROOM, *ptrNoun.NOUN
+  *ptrNoun = FindMapElement(Nouns(), Left(strNoun, #PARSELEN))
+  If Not *ptrNoun Or Not FindMapElement(Rooms(), strNew)
+    ProcedureReturn
+  EndIf
+  ;The noun owns its location. Callers may pass an obsolete source room.
+  strPrev = *ptrNoun\strRoom
+  If strPrev = strNew
+    ProcedureReturn
+  EndIf
   
   ;add item to new room
   *ptrRoom = FindMapElement(Rooms(), strNew)
@@ -162,21 +171,15 @@ Procedure ChangeItemRoom(strNoun.s, strNew.s, strPrev.s = "")
   
   ;item added to inventory is automatically made playeraware and available
   If *ptrRoom\strRoom = #INVENTORY
-    ItemState(#STATESET, strNoun, #SPLAYERAWARE | #SAVAIL)
+    ItemState(#STATESET, strNoun, #SPLAYERAWARE | #SAVAIL, #SDROPPED)
   EndIf
     
-  ;default to current room, but lookup room if name supplied in call
-  If strPrev = ""
-    *ptrRoom = GG\ptrRoom
-  Else
-    *ptrRoom = FindMapElement(Rooms(), strPrev)
+  ;Remove the old membership before updating the inventory count.
+  *ptrRoom = FindMapElement(Rooms(), strPrev)
+  If *ptrRoom
+    DeleteMapElement(*ptrRoom\mapNouns(), Left(strNoun, #PARSELEN))
   EndIf
-  
-  DeleteMapElement(*ptrRoom\mapNouns(), Left(strNoun, #PARSELEN))
-  
-  If strPrev = #INVENTORY
-    GG\ptrInventory\iCount - 1
-  EndIf
+  GG\ptrInventory\iCount = MapSize(GG\ptrInventory\mapNouns())
   
   GU\iDirty + 1
 EndProcedure

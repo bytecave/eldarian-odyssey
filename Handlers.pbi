@@ -15,19 +15,11 @@ Procedure.s InventoryHandler(iMode.i, strNoun.s = "")
   With GG\ptrInventory
     Select iMode
       Case #INVENTORYADD
-        AddMapElement(GG\ptrInventory\mapNouns(), Left(strNoun, #PARSELEN))  ;always #PARSELEN for mapkey
-        GG\ptrInventory\mapNouns() = strNoun       ;always full noun for map value
-        \iCount + 1 
-        
-        FindMapElement(Nouns(), Left(strNoun, #PARSELEN))
-        Nouns()\strRoom = #INVENTORY
-        
-        ;item added to inventory is automatically made playeraware and available, if not already
-        ItemState(#STATESET, strNoun, #SPLAYERAWARE | #SAVAIL)
+        ChangeItemRoom(strNoun, #INVENTORY)
   
       Case #INVENTORYDROP
         DeleteMapElement(GG\ptrInventory\mapNouns(), Left(strNoun, #PARSELEN))
-        \iCount - 1
+        \iCount = MapSize(\mapNouns())
         
       Case #INVENTORYDISPLAY
         str = HandleMessage("inventory")
@@ -80,7 +72,9 @@ Procedure.s InventoryHandler(iMode.i, strNoun.s = "")
       iStateUnset = #STATE1 | #STATE3 | #STATE4
     EndIf
     
-    ItemState(#STATESET, "BACKPACK", iStateSet, iStateUnset)
+    If iMode <> #INVENTORYCHECK
+      ItemState(#STATESET, "BACKPACK", iStateSet, iStateUnset)
+    EndIf
   EndWith
   
   str = TrimDelimiters(str)
@@ -126,7 +120,15 @@ Procedure ExamineHandler(strNoun.s)
       str = "Your backpack lies on the ground. You'll have to pick it up to see what's in it."
     Else
       
-      str = GetStateString(*ptrNoun\strDescription, *ptrNoun\iState)
+      If strNoun = "COIN"
+        If GG\iCoins = 1
+          str = "This is a solid gold coin with the royal seal of Zarburg stamped on it."
+        Else
+          str = "These are " + Str(GG\iCoins) + " solid gold coins with the royal seal of Zarburg stamped on them."
+        EndIf
+      Else
+        str = GetStateString(*ptrNoun\strDescription, *ptrNoun\iState)
+      EndIf
       
       If strNoun = "BACKPACK"
         str + " " + InventoryHandler(#INVENTORYDISPLAY, #GETINVSTRING) + "."
@@ -1226,7 +1228,7 @@ Procedure PackHandler(iMode.i)
       While NextMapElement(\mapNouns())
         
         ;if dropping the backpack, user can still carry the torch
-        If \mapNouns() <> "TORCH"
+        If \mapNouns() <> "TORCH" And \mapNouns() <> "BRACELET"
           AddMapElement(*ptrPack\mapNouns(), MapKey(\mapNouns()))  ;#PARSELEN for map
           *ptrPack\mapNouns() = \mapNouns()                        ;full name foe value
           
@@ -1480,8 +1482,10 @@ Procedure.i DambenHandler(strVerb.s, strNoun.s)
   iState = ItemState(#STATEGET, "DAMBEN")
   
   Select strVerb 
-    Case "TALK"  ;enter
-      If Not iState & #STATE7  ;haven't talked to guard
+    Case "TALK", "SPEA"
+      If iState & #STATE5
+        str = Chr(34) + "The way is open. Safe travels, adventurer." + Chr(34)
+      ElseIf Not iState & #STATE7  ;haven't talked to guard
         str = "One of the guards "
         If iState & #STATE2
           str + "growls"
@@ -1530,13 +1534,13 @@ Procedure.i DambenHandler(strVerb.s, strNoun.s)
           str + " Have a really great journey!"
         EndIf
       Else
-        If GG\iCoins > 1   ;do we have sufficient coins
-          SpendCoin(2)
+        If SpendCoin(2)
           
           str = Chr(34) + "Oh, no, we really shouldn't. It's quite against the law of our village to accept bribes." + Chr(34) + " The guard takes two gold coins from your hand. " + Chr(34) + "We'll dampen our great feelings of guilt with this gold!" + Chr(34)
           str + " The Damben waves his hands in an intricate pattern and soon the barricade slides open, allowing passage to the west."
           
           ChangeStateAction("BRIBE", "DAMBEN")
+          ItemState(#STATESET, "DAMBEN", #STATE5)
 
           ;barricade is now open, allowing passage
           ChangeAvailDirection(GG\ptrRoom\iRoomX, GG\ptrRoom\iRoomY, #WEST, #DIROK)
@@ -1620,7 +1624,7 @@ Procedure.i ClerkHandler(strVerb.s, strNoun.s)
           *ptrCoin = FindMapElement(Nouns(), "COIN")
           
           If *ptrCoin\strRoom = #ITEMGONE
-            If GG\ptrInventory\iCount = #MAXINVENTORY
+            If GG\ptrInventory\iCount > #MAXINVENTORY
               str = "I have some coins to give you, but your pack is full. Talk to me again after you've dropped something. The clerk hands the note back to you."
             Else
               ChangeItemRoom("COIN", #INVENTORY, #ITEMGONE)
@@ -1787,7 +1791,9 @@ Procedure DrowHandler(strVerb.s, strNoun.s)
   Protected sTimer.EOTIMER
   
   iState = ItemState(#STATEGET, "DROW")
-  fPlayerHasMap = Bool(InventoryHandler(#INVENTORYCHECK, "MAP") = #HASITEM)
+  ;A sold map remains the player's property when dropped or packed away.
+  FindMapElement(Nouns(), "MAP")
+  fPlayerHasMap = Bool(Nouns()\strRoom <> #ITEMGONE)
   
   Select strVerb
     Case "TALK", "SPEA", "BARG"  ;speak, bargain
@@ -1836,10 +1842,10 @@ Procedure DrowHandler(strVerb.s, strNoun.s)
       If Not fPlayerHasMap 
         If GG\fHaveBackpack And GG\iCoins > 0
           If GG\ptrInventory\iCount < #MAXINVENTORY
-            SpendCoin()
-            ChangeItemRoom("MAP", "INVENTORY", "ITEMGONE")
-          
-            str = "The drow hands you a well-read map. " + Chr(34) + "Be careful. If you drop it, the map will eventually return home. Hahahaha!" + Chr(34)
+            If SpendCoin()
+              ChangeItemRoom("MAP", "INVENTORY", "ITEMGONE")
+              str = "The drow hands you a well-read map. " + Chr(34) + "Be careful. If you drop it, the map will eventually return home. Hahahaha!" + Chr(34)
+            EndIf
           Else
             str = "You have no room to carry anything. Come back when you've made some room in your pack."
           EndIf
@@ -2056,7 +2062,6 @@ Procedure.i TreeHandler(strVerb.s, strNoun.s)
             Case "WOODSBURIED", "WOODSTREE"
               AddToOutput("You try to chop the tree and the axe flies from your hands, lost forever in the dark woods.")
               ChangeItemRoom("AXE", #ITEMGONE, #INVENTORY)
-              InventoryHandler(#INVENTORYDROP, "AXE")
               
             Default      
             AddToOutput("It's too dangerous to chop down the tree while you're in it!")
@@ -2282,6 +2287,10 @@ Procedure BuyMealbar(iState.i)
   
   If GG\fHaveBackpack
     If iState & #STATE1  ; mealbar purchased yet?
+      If GG\ptrInventory\iCount >= #MAXINVENTORY And GG\iCoins <> 1
+        AddToOutput("Your backpack is full. Make room before buying the mealbar.")
+        ProcedureReturn
+      EndIf
       If SpendCoin()
         ChangeStateAction("BUY", "MEALBAR")
         InventoryHandler(#INVENTORYADD, "MEALBAR")
@@ -2732,7 +2741,7 @@ Procedure DropHandler(strNoun.s)
     If strNoun = "BACK"
       GG\fHaveBackpack = #False
       PackHandler(#DROPBACKPACK)
-    ElseIf strNoun = "SCEPTER"
+    ElseIf strNoun = "SCEP"
       ChangeStateAction("DROP", "SCEPTER") ;scepter no longer in hand
     EndIf
     
@@ -2752,7 +2761,7 @@ Procedure DropHandler(strNoun.s)
       str = strFullNoun
     EndIf
     
-    If *ptrNoun\iState & #SFIXED
+    If *ptrNoun And *ptrNoun\iState & #SFIXED
       AddToOutput("You can't even pick up the " + str + "!")
     Else
       AddToOutput("You're not carrying a " + str + ".")
@@ -2765,8 +2774,8 @@ EndProcedure
 Procedure GetHandler(strNoun.s)
   Protected *ptrNoun.NOUN, str.s, strFullNoun.s
   
-  If GG\ptrInventory\iCount = #MAXINVENTORY
-    AddToOutput("You are carrying too much. You'll need to drop one or more items to pick anything else up.")
+  If strNoun = "ALL"
+    AddToOutput("Please pick things up one at a time.")
     ProcedureReturn
   EndIf
   
@@ -2782,6 +2791,10 @@ Procedure GetHandler(strNoun.s)
       str = "Please tell me exactly what to get."
     Default
       *ptrNoun = FindMapElement(Nouns(), strNoun)
+      If Not *ptrNoun
+        AddToOutput("I don't see any " + strFullNoun + " here.")
+        ProcedureReturn
+      EndIf
       
       With GG\ptrRoom
         ;if item is not already in our inventory
@@ -2800,7 +2813,7 @@ Procedure GetHandler(strNoun.s)
                   str = "You have nowhere to put the " + strFullNoun + ". You need your backpack to pick up items."
                 Else
                   ;verified that player is able to get the item, but first let's make sure they have enough room to carry it
-                  If GG\ptrInventory\iCount = #MAXINVENTORY
+                  If GG\ptrInventory\iCount >= #MAXINVENTORY
                     str = "You are carrying too much. You'll need to drop one or more items to pick anything else up."
                   Else
                     ;change room state according to noun room state string

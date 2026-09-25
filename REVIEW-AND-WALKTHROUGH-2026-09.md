@@ -8,7 +8,7 @@ The supplied Codex prompt authorized this work. The supplied preliminary review 
 
 Verified compiler: **PureBasic 6.41 (Windows - x64)**, normal ASM `pbcompiler.exe`. All five uses of removed `#PB_String_InPlace` were migrated to assigned `ReplaceString()` results, retaining case sensitivity, start positions, and replacement counts. No additional compile-blocking incompatibilities remained after that migration. Current semantics were checked against the official [ReplaceString reference](https://www.purebasic.com/documentation/string/replacestring.html), [migration guide](https://www.purebasic.com/documentation/reference/migration.html), and [compiler CLI reference](https://www.purebasic.com/documentation/reference/cli_compiler.html).
 
-The project creator and both x64 compiler selections now name 6.41 x64. DebugX86 now actually enables debugging. All four targets, paths, icon, version/company/product fields, and IFID remain. The x86 compiler selections retain their historical metadata pending validation with an installed x86 compiler.
+The project creator and both x64 compiler selections now name 6.41 x64. DebugX86 now actually enables debugging. All four targets retain their paths, icon, company/product fields, and IFID; their project version fields are now 1.02. The x86 compiler selections retain their historical metadata pending validation with an installed x86 compiler.
 
 Run from this directory:
 
@@ -16,7 +16,7 @@ Run from this directory:
 powershell -NoProfile -File .\Validate.ps1
 ```
 
-This runs `/CHECK`, the requested x64 release build with `/ICON /XP /USER`, a debugger-enabled build, and the console regression executable. It stops on failure and does not launch the graphical game. The CLI build does not consume the PBP's version-resource settings; those are preserved in the project for IDE builds.
+This runs `/CHECK`, the requested x64 release build with `/ICON /XP /USER`, a debugger-enabled build, and the console regression executable. It stops on failure and does not launch the graphical game. The CLI builds embed separate release/debug Windows version resources, both reporting version 1.02; the PBP targets use the same version number for IDE builds.
 
 Results at completion:
 
@@ -25,6 +25,7 @@ Results at completion:
 | Application `/CHECK` | Passed with PureBasic 6.41 x64 ASM |
 | Release executable | Built successfully at `Binaries/EldarianOdyssey-x64.exe` |
 | Debugger-enabled executable | Built successfully; not a claim of an interactive debugger playthrough |
+| Published x64 archives | `Binaries/EldarianOdyssey-x64.zip` and `Binaries/EldarianOdyssey-x64-Debug.zip` each contain exactly their matching version 1.02 executable |
 | Regression executable | **211 checks, 0 failures** |
 | Complete game progression | Executed from fresh state through actual parser/handlers, rescue, return, and once-only reward; inventory membership checked after each command |
 | Save/load | Real temporary EOS files exercised for victory, timers/metadata, jump warnings, reset, invalid-load rejection, and failed-save dirty state |

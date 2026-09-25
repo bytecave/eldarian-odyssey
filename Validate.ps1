@@ -21,9 +21,9 @@ try {
     Write-Host 'Checking application source...'
     Invoke-Compiler -CompilerArguments @('EldarianOdyssey.pb', '/CHECK')
     Write-Host 'Building Windows x64 release...'
-    Invoke-Compiler -CompilerArguments @('EldarianOdyssey.pb', '/OUTPUT', 'Binaries\EldarianOdyssey-x64.exe', '/ICON', 'Resources\icons\EO_Icon.ico', '/XP', '/USER')
+    Invoke-Compiler -CompilerArguments @('EldarianOdyssey.pb', '/OUTPUT', 'Binaries\EldarianOdyssey-x64.exe', '/ICON', 'Resources\icons\EO_Icon.ico', '/RESOURCE', 'Resources\EO_Version_Release.rc', '/XP', '/USER')
     Write-Host 'Building Windows x64 with debugger...'
-    Invoke-Compiler -CompilerArguments @('EldarianOdyssey.pb', '/OUTPUT', 'Binaries\EldarianOdyssey-x64-Debug.exe', '/ICON', 'Resources\icons\EO_Icon.ico', '/XP', '/USER', '/DEBUGGER')
+    Invoke-Compiler -CompilerArguments @('EldarianOdyssey.pb', '/OUTPUT', 'Binaries\EldarianOdyssey-x64-Debug.exe', '/ICON', 'Resources\icons\EO_Icon.ico', '/RESOURCE', 'Resources\EO_Version_Debug.rc', '/XP', '/USER', '/DEBUGGER')
     Write-Host 'Building and running parser/state regressions...'
     Invoke-Compiler -CompilerArguments @('RegressionTests.pb', '/OUTPUT', 'Binaries\RegressionTests.exe', '/CONSOLE', '/LINENUMBERING')
     & .\Binaries\RegressionTests.exe

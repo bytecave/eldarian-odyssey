@@ -1726,6 +1726,9 @@ Procedure.i DefenderHandler(strVerb.s, strNoun.s)
       Else
         str = Chr(34) + "Good day. We hope your petition to the king goes well." + Chr(34)
       EndIf
+      If Not GG\fLightPermanent
+        str + " " + Chr(34) + "Kneel before the king, knave!" + Chr(34)
+      EndIf
       
     Case "FIGH", "ATTA", "KILL"  ;Fight, attack
       If iState & #STATE1  ;tried to fight already
